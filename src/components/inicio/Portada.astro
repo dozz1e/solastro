@@ -1,0 +1,37 @@
+---
+import Container from "@layouts/Container.astro";
+import Buscardor from "@components/inicio/Buscador.astro";
+---
+
+<Container>
+  <div class="card image-full h-96 portada rounded-none md:rounded-3xl">
+    <figure>
+      <img
+        src="/images/fondo.webp"
+        alt="Cabecera Marsol"
+        class="w-full object-top"
+      />
+    </figure>
+    <div class="card-body md:absolute md:top-20 md:left-10">
+      <h1
+        class="card-title md:text-6xl md:max-w-md text-shadow-lg/30 pb-4 text-center md:text-left"
+      >
+        Vendemos o arrendamos su propiedad
+      </h1>
+      <p
+        class="md:text-xl md:max-w-md text-shadow-lg/30 text-center md:text-left"
+      >
+        ¿Necesitas vender o arrendar? Confía en los mejores profesionales
+      </p>
+    </div>
+  </div>
+  <Buscardor />
+</Container>
+
+<style>
+  @media (width >= 48rem) {
+    .portada {
+      height: 600px;
+    }
+  }
+</style>

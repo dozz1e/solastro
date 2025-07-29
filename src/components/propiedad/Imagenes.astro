@@ -1,0 +1,170 @@
+---
+const { slug, cantidad } = Astro.props;
+const ttimages = cantidad - 4;
+---
+
+<div id="imagenes" class="grid lg:grid-cols-5 gap-2 h-auto alto">
+  <div class="lg:col-span-4 overflow-hidden">
+    <img
+      src={`https://marsolpropiedades.cl/images/propiedades/${slug}/1.webp`}
+      alt={`Imagen 1`}
+      class="gallery-img hover:shadow-xl lg:w-full h-full object-cover alto-img"
+      data-index="0"
+    />
+  </div>
+  <div class="lg:col-span-1">
+    <div class="grid grid-cols-3 lg:grid-cols-1 gap-2 alto">
+      <div class="col-span-1 h-full">
+        <img
+          src={`https://marsolpropiedades.cl/images/propiedades/${slug}/2.webp`}
+          alt={`Imagen 2`}
+          class="gallery-img hover:shadow-xl h-full w-auto object-cover"
+          data-index="1"
+        />
+      </div>
+      <div class="col-span-1 h-full">
+        <img
+          src={`https://marsolpropiedades.cl/images/propiedades/${slug}/3.webp`}
+          alt={`Imagen 3`}
+          class="gallery-img hover:shadow-xl h-full w-auto object-cover"
+          data-index="2"
+        />
+      </div>
+      <div class="col-span-1 relative">
+        <img
+          src={`https://marsolpropiedades.cl/images/propiedades/${slug}/4.webp`}
+          alt={`Imagen 4`}
+          class="gallery-img hover:shadow-xl h-full w-auto object-cover"
+          data-index="3"
+        />
+        <div
+          class="counter-image absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center text-white text-2xl font-bold gallery-img"
+          data-index="3"
+        >
+          +{ttimages}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gallery hidden">
+  {
+    Array.from({ length: cantidad }, (_, index) => (
+      <img
+        src={`https://marsolpropiedades.cl/images/propiedades/${slug}/${index + 1}.webp`}
+        alt={`Imagen ${index + 1}`}
+        class="gallery-img"
+        data-index={index}
+      />
+    ))
+  }
+</div>
+
+<div
+  id="lightbox"
+  style="background:rgba(0,0,0,0.8);"
+  class="hidden fixed top-0 left-0 w-full h-full z-100 items-center justify-center"
+>
+  <button
+    id="prev-btn"
+    style="position:absolute; left:30px; top:50%; font-size:2rem; background:none; border:none; color:white; cursor:pointer;"
+    >&#8592;</button
+  >
+  <img id="lightbox-img" src="" style="max-width:90vw; max-height:90vh;" />
+  <button
+    id="next-btn"
+    style="position:absolute; right:30px; top:50%; font-size:2rem; background:none; border:none; color:white; cursor:pointer;"
+    >&#8594;</button
+  >
+</div>
+
+<script define:vars={{ cantidad, slug }}>
+  let currentIndex = 0;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const galleryImgs = document.querySelectorAll(".gallery-img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    function showImage(index) {
+      currentIndex = index;
+      lightboxImg.src = `https://marsolpropiedades.cl/images/propiedades/${slug}/${index + 1}.webp`;
+      lightbox.style.display = "flex";
+      document.body.classList.add("overflow-hidden"); // Desactiva scroll
+    }
+
+    let startX = 0;
+    let endX = 0;
+
+    lightbox.addEventListener("touchstart", function (e) {
+      startX = e.touches[0].clientX;
+    });
+
+    lightbox.addEventListener("touchend", function (e) {
+      endX = e.changedTouches[0].clientX;
+      if (endX - startX > 50) {
+        // Swipe derecha (anterior)
+        currentIndex = (currentIndex - 1 + cantidad) % cantidad;
+        showImage(currentIndex);
+      } else if (startX - endX > 50) {
+        // Swipe izquierda (siguiente)
+        currentIndex = (currentIndex + 1) % cantidad;
+        showImage(currentIndex);
+      }
+    });
+
+    galleryImgs.forEach((img) => {
+      img.addEventListener("click", function () {
+        const idx = Number(this.getAttribute("data-index"));
+        showImage(idx);
+      });
+    });
+
+    prevBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + cantidad) % cantidad;
+      showImage(currentIndex);
+    });
+
+    nextBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % cantidad;
+      showImage(currentIndex);
+    });
+
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) {
+        lightbox.style.display = "none";
+        document.body.classList.remove("overflow-hidden"); // Activa scroll
+      }
+    });
+  });
+</script>
+
+<style>
+  .lightbox {
+    z-index: 10;
+  }
+  .counter-image {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .gallery-img {
+    cursor: pointer;
+  }
+
+  .alto-img {
+    height: 400px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+
+  @media (width >= 64rem) {
+    .alto,
+    .alto-img {
+      height: 566px !important;
+    }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import Container from "@layouts/Container.astro";
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import { nuevas } from "@lib/propiedades";
+import Card from "@components/inicio/Card.astro";
+---
+
+<div class="bg-gray-200 pb-20">
+  <Container>
+    <ContainerInterno>
+      <div class="navbar w-full pt-10">
+        <div class="navbar-start">
+          <h2 class="text-xl md:text-3xl">Propiedades Nuevas</h2>
+        </div>
+        <div class="navbar-end">
+          <a href="/propiedades" class="link">Ver Todas</a>
+        </div>
+      </div>
+      <p class="pb-10 pt-5 mx-auto md:w-[1000px]">
+        Un terreno es una gran opción para empezar una nueva vida. Un
+        apartamento de un dormitorio tiene un salón o comedor separado desde el
+        dormitorio. Dos dormitorios, tres dormitorios, y más grandes.
+      </p>
+      <div class="grid md:grid-cols-4 gap-4">
+        {
+          nuevas.map((propiedad) => (
+            <Card
+              ciudad={propiedad.direccion.ciudad}
+              slug={propiedad.slug}
+              key={propiedad.slug}
+              direccion={propiedad.direccion.direccion}
+              precio={propiedad.precio.precio}
+              precioUf={propiedad.precio.precioUf}
+              tipo={propiedad.categoriaGraphql.categoria}
+              operacion={propiedad.operacion.operacion}
+              datos={propiedad.datos}
+              estacionamiento={propiedad.incluye.incluye.includes(
+                "Estacionamiento"
+              )}
+            />
+          ))
+        }
+      </div>
+    </ContainerInterno>
+  </Container>
+</div>

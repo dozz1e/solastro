@@ -1,0 +1,22 @@
+---
+const { title, pagina } = Astro.props;
+---
+
+<div
+  class="hero h-60"
+  style={`background: url(https://marsolpropiedades.cl/images/varios/${pagina}@1x.webp) no-repeat;`}
+>
+  <div class="hero-overlay"></div>
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold text-white">{title}</h1>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero {
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+</style>

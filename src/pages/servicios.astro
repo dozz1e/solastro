@@ -1,0 +1,78 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import Cabecera from "@components/extras/Cabecera.astro";
+
+const seo: Seo = {
+  title: "Servicios MarSol Propiedades | Compra Venta Arriendo Inmobiliario",
+  description:
+    "Dedicados al rubro inmobiliario, compra, venta, arriendo y/o administración de propiedades. Profesionales en el área administrativa, comercial y jurídica.",
+  url: "https://marsolpropiedades.cl",
+  image: "https://marsolpropiedades.cl/logos/logo-completo.png",
+  keywords: ["propiedades", "arriendo", "venta", "compra", "marsolpropiedades"],
+};
+
+const vistas = [
+  {
+    name: "COMPRA Y VENTA",
+    text: "<ul><li>Apoyo y asesoría (valorización, tasación, tramitación legal).</li><li>Estrategias de venta, difusión y posicionamiento de la propiedad.</li><li>Generamos compromisos de compraventa.</li><li>Te orientamos y acompañamos durante el todo el proceso.</li></ul>",
+    id: 1,
+    image: "https://marsolpropiedades.cl/images/servicios/0.webp",
+    icon: "",
+  },
+  {
+    name: "ADMINISTRACIÓN",
+    text: "Escuchar las necesidades y requerimientos de nuestros clientes, entregando un servicio integral y personalizado, asesorándolos de manera cercana, eficaz y confiable tanto en la compra, venta, arriendo y/o administración de las propiedades. Acompañándolos en este proceso de principio a fin, ofreciendo un servicio de calidad y excelencia.",
+    id: 2,
+    image: "https://marsolpropiedades.cl/images/servicios/1.webp",
+    icon: "",
+  },
+  {
+    name: "ARRIENDOS",
+    text: "<ul><li>Contamos con un gran stock de propiedades.</li><li>Buscamos la mejor opción para ti.</li><li>Gestionamos visitas de acuerdo a tu disponibilidad.</li><li>Generamos contratos de arrendamiento y promesa de compraventa.</li></ul>",
+    id: 3,
+    image: "https://marsolpropiedades.cl/images/servicios/2.webp",
+    icon: "",
+  },
+];
+---
+
+<Layout dataPag={seo}>
+  <ContainerInterno>
+    <Cabecera title="Servicios" pagina="servicios" />
+    <div class="bg-white mb-4">
+      <div class="card md:card-side rounded-none flex items-center mt-4 p-4">
+        <div class="card-body max-w-2xl">
+          <h2 class="card-title">EQUIPO DE PROFESIONALES</h2>
+          <p>
+            Somos un apasionado equipo de corredores inmobiliarios. Trabajamos
+            con devoción a nuestros clientes. Cada aspecto del negocio tiene
+            como objetivo el éxito. Agradecemos que confíe en nosotros para
+            ayudarlo a encontrar las mejores soluciones para usted.
+          </p>
+        </div>
+        <img
+          src="https://marsolpropiedades.cl/images/servicios/0.webp"
+          alt="Nosotros"
+        />
+      </div>
+      <div class="card md:card-side rounded-none flex items-center mt-4 p-4">
+        <img
+          src="https://marsolpropiedades.cl/images/varios/casa.webp"
+          alt="Nosotros"
+          class="w-96"
+        />
+        <div>
+          {
+            vistas.map((item) => (
+              <div class="card-body max-w-2xl">
+                <h2 class="card-title">{item.name}</h2>
+                <p set:html={item.text} />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </ContainerInterno>
+</Layout>

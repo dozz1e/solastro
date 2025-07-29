@@ -1,0 +1,162 @@
+---
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import { categoria, ciudad } from "@lib/propiedades.ts";
+---
+
+<div class="flex justify-center">
+  <div
+    class="card card-border bg-white w-full h-auto rounded-3xl -mt-10 buscador"
+  >
+    <div class="card-body p-4">
+      <form id="buscadorForm" action="">
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-5">
+          <div
+            class="border-1 border-gray-800 rounded-lg p-2 col-span-1 md:col-span-3"
+          >
+            <fieldset class="fieldset p-0">
+              <select class="select select-ghost w-full text-lg">
+                <option disabled selected value="">Elija Tipo</option>
+                {categoria.map((cate) => <option value={cate}>{cate}</option>)}
+              </select>
+            </fieldset>
+          </div>
+          <div
+            class="border-1 border-gray-800 rounded-lg p-2 col-span-1 md:col-span-3"
+          >
+            <fieldset class="fieldset p-0">
+              <select class="select select-ghost w-full text-lg">
+                <option disabled selected value="">Elija Ciudad</option>
+                {ciudad.map((city) => <option value={city}>{city}</option>)}
+              </select>
+            </fieldset>
+          </div>
+          <div
+            class="border-1 border-gray-800 rounded-lg p-2 col-span-1 md:col-span-3"
+          >
+            <fieldset class="fieldset p-0">
+              <select class="select select-ghost w-full text-lg">
+                <option disabled selected value="">Elija Operación</option>
+                <option value="Venta">Venta</option>
+                <option value="Arriendo">Arriendo</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-span-1 flex justify-center items-center">
+            <a
+              id="buscar"
+              class="btn btn-xl bg-red-400 hover:bg-red-700 text-white rounded-lg"
+            >
+              Buscar
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<ContainerInterno>
+  <div id="resultados" class="grid grid-cols-1 md:grid-cols-4 gap-4"></div>
+</ContainerInterno>
+
+<script>
+  import { propiedades } from "../../lib/propiedades.ts";
+  const resultados = document.getElementById("resultados");
+  const buscar = document.getElementById("buscar");
+
+  buscar.addEventListener("click", function () {
+    realizarBusqueda();
+  });
+
+  function realizarBusqueda() {
+    resultados.innerHTML = "<p>Buscando...</p>";
+
+    const selects = document.querySelectorAll("select");
+    const categoria = selects[0].value;
+    const ciudad = selects[1].value;
+    const operacion = selects[2].value;
+
+    // Filtrar propiedades
+    const propiedadesFiltradas = propiedades.filter((propiedad) => {
+      let aux = true;
+      if (categoria) {
+        console.log(propiedad.categoriaGraphql.categoria, categoria);
+        aux = propiedad.categoriaGraphql.categoria[0] === categoria;
+        if (!aux) return false;
+      }
+      if (ciudad) {
+        aux = propiedad.direccion.ciudad === ciudad;
+        if (!aux) return false;
+      }
+      if (operacion) {
+        aux = propiedad.operacion.operacion === operacion;
+        if (!aux) return false;
+      }
+      return aux;
+    });
+
+    resultados.innerHTML = "";
+
+    if (propiedadesFiltradas.length === 0) {
+      resultados.innerHTML =
+        "<div class='text-center p-4'><p class='text-gray-500'>No se encontraron resultados para los criterios seleccionados</p></div>";
+    } else {
+      propiedadesFiltradas.forEach((propiedad) => {
+        resultados.innerHTML += `
+          <a href="/propiedades/${propiedad.slug}" class="col-span-1">
+            <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <figure class="relative">
+                <img
+                  src="https://marsolpropiedades.cl/images/propiedades/${propiedad.slug}/1.webp"
+                  alt={propiedad.direccion.direccion}
+                  class="w-full object-cover h-[200px]"
+                />
+                <div class="card-body bg-gradient-to-t from-black/80 to-transparent absolute bottom-0 w-full p-4">
+                  <div class="badge border-none text-white bg-red-700 px-2 w-fit">
+                    ${propiedad.precio.precio ? `$${propiedad.precio.precio} CLP` : `${propiedad.precio.precioUf} UF`}
+                  </div>
+                </div>
+              </figure>
+              <div class="bg-gray-100 px-2 py-1">${propiedad.categoriaGraphql.categoria} en ${propiedad.operacion.operacion}</div>
+              <div class="card-body p-0">
+                <ul class="list">
+                  <li class="list-row flex flex-col gap-1 h-20">
+                    <header class="overflow-hidden text-ellipsis">
+                      <h2 class="card-title">${propiedad.direccion.direccion}</h2>
+                    </header>
+                    <div class="flex justify-center items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-geo-alt" viewBox="0 0 16 16">
+  <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+</svg>
+                      <p>${propiedad.direccion.ciudad}</p>
+                    </div>
+                  </li>
+                  <li class="list-row p-2">
+                    <div class="justify-end">
+                      <div class="grid gap-1">
+                        <div>
+                          ${propiedad.datos.areaTotal ? `<div class="tooltip" data-tip="Área total"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.areaTotal} m²</span></div>` : ""} 
+                          ${propiedad.datos.banos ? `<div class="tooltip" data-tip="Baños"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.banos} Bañ.</span></div>` : ""}
+                          ${propiedad.datos.habitaciones ? `<div class="tooltip" data-tip="Dormitorios"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.habitaciones} Dorm.</span></div>` : ""}
+                          ${propiedad.incluye.estacionamiento ? `<div class="tooltip" data-tip="Estacionamiento"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">Estac.</span></div>` : ""}
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </a>
+        `;
+      });
+    }
+  }
+</script>
+
+<style>
+  @media (width >= 48rem) {
+    .buscador {
+      width: 1300px;
+    }
+  }
+</style>

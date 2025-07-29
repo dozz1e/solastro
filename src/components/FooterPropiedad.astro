@@ -1,0 +1,16 @@
+---
+import Footer from "@components/Footer.astro";
+const { contacto } = Astro.props;
+---
+
+<div class="fixed bottom-0 left-0 right-0 md:hidden bg-base-100 p-2 z-50">
+  <a
+    href={`https://wa.me/56995999796?text=${contacto}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn bg-red-700 text-white btn-lg uppercase w-full rounded-xl"
+  >
+    Consultar
+  </a>
+</div>
+<Footer class="hidden md:block" contacto={contacto} />

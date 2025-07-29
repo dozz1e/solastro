@@ -1,0 +1,119 @@
+---
+import { BedDouble, Bath, RulerDimensionLine, Car } from "@lucide/astro";
+const { datos, estacionamiento } = Astro.props;
+---
+
+<div class="stats shadow hidden lg:inline-grid">
+  {
+    datos.areaTotal && (
+      <div class="stat bg-white">
+        <div class="flex justify-center items-center gap-2">
+          <div class="stat-value">{datos.areaTotal}</div>
+          <div class="stat-figure text-secondary">
+            <RulerDimensionLine color="red" size="32" />
+          </div>
+        </div>
+        <div class="stat-desc flex justify-center">Área Total (mt2)</div>
+      </div>
+    )
+  }
+  {
+    datos.habitaciones && (
+      <div class="stat bg-white">
+        <div class="flex justify-center items-center gap-2">
+          <div class="stat-value">{datos.habitaciones}</div>
+          <div class="stat-figure text-secondary">
+            <BedDouble color="red" size="32" />
+          </div>
+        </div>
+        <div class="stat-desc flex justify-center">
+          {datos.habitaciones > 1 ? "Habitaciones" : "Habitación"}
+        </div>
+      </div>
+    )
+  }
+  {
+    datos.banos && (
+      <div class="stat bg-white">
+        <div class="flex justify-center items-center gap-2">
+          <div class="stat-value">{datos.banos}</div>
+          <div class="stat-figure text-secondary">
+            <Bath color="red" size="32" />
+          </div>
+        </div>
+        <div class="stat-desc flex justify-center">
+          {datos.banos > 1 ? "Baños" : "Baño"}
+        </div>
+      </div>
+    )
+  }
+  {
+    estacionamiento && (
+      <div class="stat bg-white">
+        <div class="flex justify-center items-center gap-2">
+          <div class="stat-figure text-secondary">
+            <Car color="red" size="32" />
+          </div>
+        </div>
+        <div class="stat-desc flex justify-center">Estacionamiento</div>
+      </div>
+    )
+  }
+</div>
+<div class="lg:hidden">
+  <ul class="list">
+    {
+      datos.areaTotal && (
+        <li class="list-row pl-0">
+          <div>
+            <RulerDimensionLine color="red" size="32" />
+          </div>
+          <div>
+            <div class="text-xs uppercase font-semibold opacity-60">
+              Área Total
+            </div>
+            {datos.areaTotal} mt<sup>2</sup>
+          </div>
+        </li>
+      )
+    }
+    {
+      datos.habitaciones && (
+        <li class="list-row pl-0">
+          <div>
+            <BedDouble color="red" size="32" />
+          </div>
+          <div>
+            <div class="text-xs uppercase font-semibold opacity-60">
+              Habitaciones
+            </div>
+            {datos.habitaciones}
+          </div>
+        </li>
+      )
+    }
+    {
+      datos.banos && (
+        <li class="list-row pl-0">
+          <div>
+            <Bath color="red" size="32" />
+          </div>
+          <div>
+            <div class="text-xs uppercase font-semibold opacity-60">Baños</div>
+            {datos.banos}
+          </div>
+        </li>
+      )
+    }
+    {
+      estacionamiento && (
+        <li class="list-row pl-0">
+          <div>
+            <Car color="red" size="32" />
+          </div>
+          <div>Estacionamiento</div>
+        </li>
+      )
+    }
+  </ul>
+</div>

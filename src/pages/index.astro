@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "@layouts/Layout.astro";
+import Portada from "@components/inicio/Portada.astro";
+import SliderPro from "@components/inicio/SliderPro.astro";
+import Nuevas from "@components/inicio/Nuevas.astro";
+import Servicios from "@components/inicio/Servicios.astro";
+import Nosotros from "@components/inicio/Nosotros.astro";
+import type { Seo } from "@interfaces/Seo";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const seo: Seo = {
+  title: "MarSol Propiedades | Compra Venta Arriendo Inmobiliario",
+  description:
+    "Dedicados al rubro inmobiliario, compra, venta, arriendo y/o administración de propiedades. Profesionales en el área administrativa, comercial y jurídica.",
+  url: "https://marsolpropiedades.cl",
+  image: "https://marsolpropiedades.cl/logos/logo-completo.png",
+  keywords: ["propiedades", "arriendo", "venta", "compra", "marsolpropiedades"],
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout dataPag={seo}>
+  <Portada />
+  <SliderPro />
+  <Nuevas />
+  <Servicios />
+  <Nosotros />
 </Layout>

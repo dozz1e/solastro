@@ -1,0 +1,13 @@
+---
+import Agente from "@components/extras/Agente.astro";
+// import Tags from "@components/propiedad/Tags.astro";
+import Ultimas from "@components/propiedad/Ultimas.astro";
+
+const { contacto } = Astro.props;
+---
+
+<aside class="bg-white mb-4 rounded-lg">
+  <Agente contacto={contacto} />
+  <!-- <Tags /> -->
+  <Ultimas />
+</aside>

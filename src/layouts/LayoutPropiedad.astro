@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+import HeaderPropiedad from "@components/HeaderPropiedad.astro";
+import FooterPropiedad from "@components/FooterPropiedad.astro";
 import { SEO } from "astro-seo";
 
 interface Props {
@@ -9,10 +9,12 @@ interface Props {
   description: string;
   url: string;
   image: string;
+  contacto: string;
 }
 
 const { title, description, url, image, keywords } = Astro.props
   .dataPag as Props;
+const { contacto } = Astro.props;
 ---
 
 <!doctype html>
@@ -45,8 +47,8 @@ const { title, description, url, image, keywords } = Astro.props
     />
   </head>
   <body class="bg-base-200 text-base-content">
-    <Header />
+    <HeaderPropiedad />
     <slot />
-    <Footer />
+    <FooterPropiedad contacto={contacto} />
   </body>
 </html>

@@ -1,0 +1,12 @@
+---
+import Dock from "@components/Dock.astro";
+import Foot from "@components/extras/Foot.astro";
+
+interface Props {
+  contacto?: string;
+}
+const { contacto = "Contacto%20MarSol%20Propiedades" } = Astro.props;
+---
+
+<Dock contacto={contacto} />
+<Foot />

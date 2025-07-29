@@ -1,0 +1,89 @@
+---
+import LayoutPropiedad from "@layouts/LayoutPropiedad.astro";
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import { propiedades } from "@lib/propiedades";
+import type { Propiedad } from "@interfaces/Propiedad";
+import type { Seo } from "@interfaces/Seo";
+
+import Cabecera from "@components/propiedad/Cabecera.astro";
+import Imagenes from "@components/propiedad/Imagenes.astro";
+import Informacion from "@components/propiedad/Informacion.astro";
+import Detalles from "@components/propiedad/Detalles.astro";
+import Extras from "@components/propiedad/Extras.astro";
+import Mapa from "@components/propiedad/Mapa.astro";
+import Aside from "@components/propiedad/Aside.astro";
+
+export const getStaticPaths = (() => {
+  return propiedades.map((propiedad: Propiedad) => ({
+    params: { slug: propiedad.slug },
+    props: { propiedad },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  propiedad: Propiedad;
+}
+
+const propiedad = Astro.props.propiedad;
+
+const seo: Seo = {
+  title: propiedad.seo.title,
+  description: propiedad.seo.metaDesc,
+  url: "https://www.marsolpropiedades.cl" + propiedad.slug,
+  image:
+    "https://marsolpropiedades.cl/images/propiedades/" +
+    propiedad.slug +
+    "/1.jpg",
+  keywords: [
+    propiedad.slug,
+    propiedad.direccion.ciudad,
+    propiedad.categoriaGraphql.categoria,
+    propiedad.operacion.operacion,
+  ],
+};
+
+let city = "";
+if (propiedad.direccion.ciudad) {
+  city = propiedad.direccion.ciudad.replace(/ /g, "+") || "";
+}
+let dire = "";
+if (propiedad.direccion.direccion) {
+  dire = propiedad.direccion.direccion.replace(/ /g, "+") || "";
+}
+const mapa = `${dire}+${city}`;
+---
+
+<LayoutPropiedad
+  dataPag={seo}
+  contacto={`Consulta%20propiedad%20${propiedad.title}`}
+>
+  <ContainerInterno>
+    <Cabecera
+      title={propiedad.title}
+      tipo={propiedad.categoriaGraphql}
+      operacion={propiedad.operacion}
+      slug={propiedad.slug}
+    />
+    <div class="grid lg:grid-cols-4 gap-4">
+      <div class="lg:col-span-3 gap-4">
+        <Imagenes slug={propiedad.slug} cantidad={propiedad.datos.galeria} />
+        <Informacion propiedad={propiedad} />
+        <Detalles texto={propiedad.detallesAdicionales.detalles} />
+        {
+          (propiedad.incluye.incluye ||
+            propiedad.espaciosComunes.espaciosComunes) && (
+            <Extras
+              incluye={propiedad.incluye.incluye}
+              espacios={propiedad.espaciosComunes.espaciosComunes}
+            />
+          )
+        }
+
+        {mapa.length > 0 && <Mapa mapa={mapa} />}
+      </div>
+      <div class="col-span-1">
+        <Aside contacto={`Consulta%20propiedad%20${propiedad.title}`} />
+      </div>
+    </div>
+  </ContainerInterno>
+</LayoutPropiedad>

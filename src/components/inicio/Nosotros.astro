@@ -1,0 +1,46 @@
+---
+import Container from "@layouts/Container.astro";
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import Agente from "@components/extras/Agente.astro";
+import Equipo from "@components/extras/Equipo.astro";
+---
+
+<div class="pb-20">
+  <Container>
+    <ContainerInterno>
+      <div id="nosotros">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="col-span-1 flex items-center justify-center">
+            <img
+              src="https://marsolpropiedades.cl/logos/logo-completo.png"
+              alt="Logo Marsol Propiedades"
+              class="h-32 md:h-56"
+            />
+          </div>
+          <div class="col-span-1 flex items-center justify-center fondo-semi">
+            <Equipo />
+          </div>
+          <div class="col-span-1 flex items-center justify-center fondo-semi">
+            <Agente />
+          </div>
+        </div>
+      </div>
+    </ContainerInterno>
+  </Container>
+</div>
+
+<style>
+  #nosotros {
+    background: url("https://marsolpropiedades.cl/images/fondos/nosotros.webp")
+      no-repeat center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: contain;
+    background-position: center;
+  }
+
+  .fondo-semi {
+    background: rgba(255, 255, 255, 0.7);
+  }
+</style>

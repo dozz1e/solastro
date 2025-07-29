@@ -1,0 +1,94 @@
+---
+import { MapPin } from "@lucide/astro";
+const {
+  ciudad,
+  slug,
+  direccion,
+  precio,
+  precioUf,
+  tipo,
+  operacion,
+  datos,
+  estacionamiento,
+} = Astro.props;
+---
+
+<a href={`/propiedades/${slug}`}>
+  <div
+    class="card bg-base-100 shadow-lg col-span-1 hover:shadow-xl transition-shadow duration-300"
+  >
+    <figure class="relative">
+      <img
+        src={`https://marsolpropiedades.cl/images/propiedades/${slug}/mini.webp`}
+        alt={direccion}
+        class="w-full object-cover h-[250px]"
+      />
+      <div
+        class="card-body bg-gradient-to-t from-black/80 to-transparent absolute bottom-0 w-full p-4"
+      >
+        <div class="badge border-none text-white bg-red-700 px-2 w-fit">
+          {precio && `$${precio} CLP`}
+          {precioUf && `${precioUf} UF`}
+        </div>
+      </div>
+    </figure>
+    <div class="bg-gray-100 px-2 py-1">{tipo} en {operacion}</div>
+    <div class="card-body p-0">
+      <ul class="list">
+        <li class="list-row flex flex-col gap-1 h-20">
+          <header class="overflow-hidden text-ellipsis">
+            <h2 class="card-title">{direccion}</h2>
+          </header>
+          <div class="flex justify-center items-center gap-1">
+            <MapPin color="red" size="18" />
+            <p>{ciudad}</p>
+          </div>
+        </li>
+        <li class="list-row p-2">
+          <div class="justify-end">
+            <div class="grid gap-1">
+              <div>
+                {
+                  datos.areaTotal && (
+                    <div class="tooltip" data-tip="Área total">
+                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                        {datos.areaTotal} m²
+                      </span>
+                    </div>
+                  )
+                }
+                {
+                  datos.banos && (
+                    <div class="tooltip" data-tip="Baños">
+                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                        {datos.banos} Bañ.
+                      </span>
+                    </div>
+                  )
+                }
+                {
+                  datos.habitaciones && (
+                    <div class="tooltip" data-tip="Dormitorios">
+                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                        {datos.habitaciones} Dorm.
+                      </span>
+                    </div>
+                  )
+                }
+                {
+                  estacionamiento && (
+                    <div class="tooltip" data-tip="Estacionamiento">
+                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                        Estac.
+                      </span>
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,121 @@
+<h3 class="text-2xl font-bold mb-4">Formulario de Contacto</h3>
+<form id="contactForm" class="flex flex-col gap-4">
+  <div>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="Nombre *"
+      required
+      class="input input-bordered w-full"
+    />
+  </div>
+  <div>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Correo *"
+      required
+      class="input input-bordered w-full"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      id="rut"
+      name="rut"
+      placeholder="Rut"
+      class="input input-bordered w-full"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      id="celular"
+      name="celular"
+      placeholder="Celular"
+      class="input input-bordered w-full"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      id="asunto"
+      name="asunto"
+      placeholder="Asunto"
+      class="input input-bordered w-full"
+    />
+  </div>
+  <div>
+    <textarea
+      id="mensaje"
+      name="mensaje"
+      placeholder="Mensaje"
+      class="textarea textarea-bordered w-full"></textarea>
+  </div>
+  <button
+    type="submit"
+    id="submitBtn"
+    class="btn bg-red-500 text-white hover:bg-red-700 text-xl uppercase btn-lg"
+    >Enviar</button
+  >
+</form>
+
+<!-- Mensaje de estado -->
+<div id="statusMessage" class="mt-4 hidden"></div>
+
+<script client:load>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Deshabilitar el botón durante el envío
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+      
+      // Ocultar mensaje anterior
+      statusMessage.classList.add('hidden');
+      
+      try {
+        // Recopilar datos del formulario
+        const formData = new FormData();
+        formData.append('name', document.getElementById('name').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('rut', document.getElementById('rut').value);
+        formData.append('celular', document.getElementById('celular').value);
+        formData.append('asunto', document.getElementById('asunto').value);
+        formData.append('mensaje', document.getElementById('mensaje').value);
+        
+        // Enviar formulario
+        const response = await fetch('https://marsolpropiedades.cl/data/correo.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (response.ok) {
+          // Éxito
+          statusMessage.innerHTML = '<div class="alert alert-success"><span>✓ Mensaje enviado correctamente. Te contactaremos pronto.</span></div>';
+          statusMessage.classList.remove('hidden');
+          form.reset(); // Limpiar formulario
+        } else {
+          throw new Error('Error en el servidor');
+        }
+        
+      } catch (error) {
+        // Error
+        console.error('Error al enviar formulario:', error);
+        statusMessage.innerHTML = '<div class="alert alert-error"><span>✗ Error al enviar el mensaje. Por favor, inténtalo de nuevo.</span></div>';
+        statusMessage.classList.remove('hidden');
+      } finally {
+        // Rehabilitar el botón
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar';
+      }
+    });
+  });
+</script>

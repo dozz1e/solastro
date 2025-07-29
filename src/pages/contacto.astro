@@ -1,0 +1,63 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import Cabecera from "@components/extras/Cabecera.astro";
+import Nosotros from "@components/inicio/Nosotros.astro";
+import Formulario from "@components/extras/Formulario.astro";
+import { MapPin, Phone, Mail, Calendar } from "@lucide/astro";
+
+const seo: Seo = {
+  title: "Contacto MarSol Propiedades | Compra Venta Arriendo Inmobiliario",
+  description:
+    "Dedicados al rubro inmobiliario, compra, venta, arriendo y/o administración de propiedades. Profesionales en el área administrativa, comercial y jurídica.",
+  url: "https://marsolpropiedades.cl",
+  image: "https://marsolpropiedades.cl/logos/logo-completo.png",
+  keywords: ["propiedades", "arriendo", "venta", "compra", "marsolpropiedades"],
+};
+---
+
+<Layout dataPag={seo}>
+  <ContainerInterno>
+    <Cabecera title="Contacto" pagina="contacto" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 bg-white my-4">
+      <div class="col-span-1">
+        <p class="text-xl">
+          Si necesitas comprar, vender o arrendar una propiedad, comunícate con
+          nosotros
+        </p>
+        <ul class="list">
+          <li class="flex items-center list-row">
+            <MapPin size="18" color="red" class="mr-1" /> Independencia 1725 of.
+            504 Edificio Plaza Victoria, Valparaíso, Chile
+          </li>
+          <li class="flex items-center list-row">
+            <Phone size="18" color="red" class="mr-1" />+56 9 9599 9796
+          </li>
+          <li class="flex items-center list-row">
+            <Mail
+              size="18"
+              color="red"
+              class="mr-1"
+            />contacto@marsolpropiedades.cl
+          </li>
+          <li class="flex items-center list-row">
+            <Calendar size="18" color="red" class="mr-1" />Lunes – Viernes:
+            09:00 – 19:00
+          </li>
+        </ul>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.366493947331!2d-71.62169342344419!3d-33.046816876956534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xaf7652d36630d4cd%3A0x92578c454c34aef1!2sMarsol%20Propiedades!5e0!3m2!1ses-419!2scl!4v1753727393197!5m2!1ses-419!2scl"
+          width="100%"
+          height="250"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="col-span-1">
+        <Formulario />
+      </div>
+    </div>
+    <Nosotros />
+  </ContainerInterno>
+</Layout>

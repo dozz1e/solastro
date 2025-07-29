@@ -1,0 +1,58 @@
+---
+import { Mail, Phone } from "@lucide/astro";
+
+interface Props {
+  contacto?: string;
+}
+const { contacto = "Contacto%20MarSol%20Propiedades" } = Astro.props;
+---
+
+<div class="card flex flex-col items-center pt-4">
+  <div class="avatar">
+    <div class="w-36 rounded-full">
+      <img
+        src="https://marsolpropiedades.cl/images/agentes/marlene2.webp"
+        class="object-contain object-top"
+      />
+    </div>
+  </div>
+  <div class="card-body items-center text-center">
+    <h2 class="card-title">Marlene Alarcón</h2>
+    <p class="text-xs text-gray-500">Administradora de Empresas</p>
+    <div>
+      <div class="flex justify-center items-center">
+        <a
+          href={`https://wa.me/56995999796?text=${contacto}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center"
+        >
+          <Phone color="red" size="18" class="mr-1" />+56995999796
+        </a>
+      </div>
+
+      <div>
+        <a
+          href="mailto:contacto@marsolpropiedades.cl"
+          class="flex justify-center items-center pt-2"
+        >
+          <Mail
+            color="red"
+            size="18"
+            class="mr-1"
+          />contacto@marsolpropiedades.cl
+        </a>
+      </div>
+      <div class="card-actions pt-2 flex justify-center">
+        <a
+          href={`https://wa.me/56995999796?text=${contacto}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn bg-red-700 hover:bg-red-900 text-white uppercase"
+        >
+          Contacto
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

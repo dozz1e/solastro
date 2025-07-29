@@ -1,0 +1,23 @@
+---
+const { imagen, ciudad, direccion, slug } = Astro.props;
+---
+
+<a href={`/propiedades/${slug}`}>
+  <li class="list-row hover:bg-gray-700 p-2">
+    <div>
+      <img class="size-10 rounded-box" src={imagen} />
+    </div>
+    <div>
+      <div class="lista-propiedad">{direccion}</div>
+      <div class="text-xs uppercase text-gray-400">{ciudad}</div>
+    </div>
+  </li>
+</a>
+
+<style>
+  li:hover {
+    .lista-propiedad {
+      color: ghostwhite;
+    }
+  }
+</style>

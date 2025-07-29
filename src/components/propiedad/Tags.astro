@@ -1,0 +1,14 @@
+---
+import { tags } from "@lib/propiedades.ts";
+---
+
+<div class="p-1">
+  <h3 class="text-xl pl-2">Tags</h3>
+  {
+    tags.map((tag) => (
+      <a href={`/propiedades/${tag}`} class="btn mx-1 mb-1">
+        {tag}
+      </a>
+    ))
+  }
+</div>

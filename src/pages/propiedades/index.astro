@@ -1,0 +1,54 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import Cabecera from "@components/extras/Cabecera.astro";
+import Card from "@components/inicio/Card.astro";
+import { propiedades } from "@lib/propiedades";
+import type { Seo } from "@interfaces/Seo";
+import BuscadorLateral from "@components/extras/BuscadorLateral.astro";
+
+const seo: Seo = {
+  title:
+    "Listado de Propiedades MarSol Propiedades | Compra Venta Arriendo Inmobiliario",
+  description:
+    "Dedicados al rubro inmobiliario, compra, venta, arriendo y/o administración de propiedades. Profesionales en el área administrativa, comercial y jurídica.",
+  url: "https://marsolpropiedades.cl",
+  image: "https://marsolpropiedades.cl/logos/logo-completo.png",
+  keywords: ["propiedades", "arriendo", "venta", "compra", "marsolpropiedades"],
+};
+---
+
+<Layout dataPag={seo}>
+  <ContainerInterno>
+    <Cabecera title="Propiedades" pagina="propiedades" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-8">
+      <div class="col-span-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="propiedadesPage">
+          {
+            propiedades.map((propiedad) => {
+              let esta =
+                "Estacionamiento".indexOf(propiedad.incluye.incluye) > -1;
+              return (
+                <Card
+                  ciudad={propiedad.direccion.ciudad}
+                  slug={propiedad.slug}
+                  key={propiedad.slug}
+                  direccion={propiedad.direccion.direccion}
+                  precio={propiedad.precio.precio}
+                  precioUf={propiedad.precio.precioUf}
+                  tipo={propiedad.categoriaGraphql.categoria}
+                  operacion={propiedad.operacion.operacion}
+                  datos={propiedad.datos}
+                  estacionamiento={esta}
+                />
+              );
+            })
+          }
+        </div>
+      </div>
+      <aside class="col-span-1">
+        <BuscadorLateral />
+      </aside>
+    </div>
+  </ContainerInterno>
+</Layout>

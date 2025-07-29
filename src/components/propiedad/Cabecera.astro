@@ -1,0 +1,13 @@
+---
+const { title, tipo, operacion, slug } = Astro.props;
+---
+
+<header class="py-2">
+  <div class="breadcrumbs text-xs md:text-sm">
+    <ul>
+      <li><a href="/">inicio</a></li>
+      <li><a href="/propiedades">propiedades</a></li>
+      <li>{slug}</li>
+    </ul>
+  </div>
+</header>
