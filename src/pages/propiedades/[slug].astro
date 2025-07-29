@@ -55,7 +55,7 @@ const mapa = `${dire}+${city}`;
 
 <LayoutPropiedad
   dataPag={seo}
-  contacto={`Consulta%20propiedad%20${propiedad.title}`}
+  contacto={`Consulta%20propiedad%20${propiedad.title}%20https%3A%2F%2Fmarsolpropiedades.cl%2Fpropiedades%2F${propiedad.slug}`}
 >
   <ContainerInterno>
     <Cabecera
@@ -82,7 +82,9 @@ const mapa = `${dire}+${city}`;
         {mapa.length > 0 && <Mapa mapa={mapa} />}
       </div>
       <div class="col-span-1">
-        <Aside contacto={`Consulta%20propiedad%20${propiedad.title}`} />
+        <Aside
+          contacto={`Consulta%20propiedad%20${propiedad.title}%20https%3A%2F%2Fmarsolpropiedades.cl%2Fpropiedades%2F${propiedad.slug}`}
+        />
       </div>
     </div>
   </ContainerInterno>
