@@ -10,30 +10,27 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
     <div class="card-body p-4">
       <form id="buscadorForm" action="">
         <div class="grid grid-cols-1 md:grid-cols-10 gap-5">
-          <div
-            class="border-1 border-gray-800 rounded-lg p-2 col-span-1 md:col-span-3"
-          >
+          <div class="rounded-lg p-2 col-span-1 md:col-span-3">
             <fieldset class="fieldset p-0">
+              <legend class="fieldset-legend p-0">Tipo</legend>
               <select class="select select-ghost w-full text-lg">
                 <option disabled selected value="">Elija Tipo</option>
                 {categoria.map((cate) => <option value={cate}>{cate}</option>)}
               </select>
             </fieldset>
           </div>
-          <div
-            class="border-1 border-gray-800 rounded-lg p-2 col-span-1 md:col-span-3"
-          >
+          <div class="rounded-lg p-2 col-span-1 md:col-span-3">
             <fieldset class="fieldset p-0">
+              <legend class="fieldset-legend p-0">Ciudad</legend>
               <select class="select select-ghost w-full text-lg">
                 <option disabled selected value="">Elija Ciudad</option>
                 {ciudad.map((city) => <option value={city}>{city}</option>)}
               </select>
             </fieldset>
           </div>
-          <div
-            class="border-1 border-gray-800 rounded-lg p-2 col-span-1 md:col-span-3"
-          >
+          <div class="rounded-lg p-2 col-span-1 md:col-span-3">
             <fieldset class="fieldset p-0">
+              <legend class="fieldset-legend p-0">Operación</legend>
               <select class="select select-ghost w-full text-lg">
                 <option disabled selected value="">Elija Operación</option>
                 <option value="Venta">Venta</option>

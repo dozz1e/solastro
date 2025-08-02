@@ -10,7 +10,7 @@ import Lista from "@components/propiedades/Lista.astro";
   <Container>
     <div class="footer sm:footer-horizontal p-10 text-white md:grid-cols-3">
       <div class="col-span-1">
-        <h4 class="text-2xl">CONTÁCTANOS</h4>
+        <div class="text-2xl">CONTÁCTANOS</div>
         <p class="text-sm text-gray-400">
           Ofrecemos servicio de venta, arriendo, administración y asesoramiento
           inmobiliario, dentro de la zona y el país.
@@ -32,8 +32,8 @@ import Lista from "@components/propiedades/Lista.astro";
         </ul>
       </div>
       <div class="col-span-1 w-full">
-        <h6 class="footer-title">Propiedades Nuevas</h6>
-        <ul class="list rounded-box shadow-md">
+        <div class="footer-title">Propiedades Nuevas</div>
+        <ul class="list rounded-box w-full">
           {
             nuevas.map((propiedad) => (
               <Lista
@@ -48,15 +48,15 @@ import Lista from "@components/propiedades/Lista.astro";
       </div>
       <div class="col-span-1">
         <nav>
-          <h6 class="footer-title">Menú</h6>
+          <div class="footer-title">Menú</div>
           <ul class="list">
             {
               menu.map((item) => (
-                <a href={item.href}>
-                  <li class="list-row uppercase hover:bg-gray-700">
+                <li class="hover:bg-gray-700">
+                  <a href={item.href} class="list-row uppercase">
                     {item.name}
-                  </li>
-                </a>
+                  </a>
+                </li>
               ))
             }
           </ul>
@@ -87,6 +87,7 @@ import Lista from "@components/propiedades/Lista.astro";
             <a
               href="https://www.instagram.com/marsolpropiedades/"
               target="_blank"
+              aria-label="Instagram"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,6 +107,7 @@ import Lista from "@components/propiedades/Lista.astro";
             <a
               href="https://www.facebook.com/propiedadesmarsol"
               target="_blank"
+              aria-label="Facebook"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

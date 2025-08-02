@@ -13,6 +13,7 @@ const { contacto = "Contacto%20MarSol%20Propiedades" } = Astro.props;
       <img
         src="https://marsolpropiedades.cl/images/agentes/marlene2.webp"
         class="object-contain object-top"
+        alt="Marlene Alarcón"
       />
     </div>
   </div>
@@ -25,7 +26,7 @@ const { contacto = "Contacto%20MarSol%20Propiedades" } = Astro.props;
           href={`https://wa.me/56995999796?text=${contacto}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center"
+          class="flex items-center p-2"
         >
           <Phone color="red" size="18" class="mr-1" />+56995999796
         </a>
@@ -34,7 +35,7 @@ const { contacto = "Contacto%20MarSol%20Propiedades" } = Astro.props;
       <div>
         <a
           href="mailto:contacto@marsolpropiedades.cl"
-          class="flex justify-center items-center pt-2"
+          class="flex justify-center items-center p-2"
         >
           <Mail
             color="red"
@@ -43,7 +44,7 @@ const { contacto = "Contacto%20MarSol%20Propiedades" } = Astro.props;
           />contacto@marsolpropiedades.cl
         </a>
       </div>
-      <div class="card-actions pt-2 flex justify-center">
+      <div class="card-actions p-2 flex justify-center">
         <a
           href={`https://wa.me/56995999796?text=${contacto}`}
           target="_blank"
