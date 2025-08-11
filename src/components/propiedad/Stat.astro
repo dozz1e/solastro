@@ -3,12 +3,12 @@ import { BedDouble, Bath, RulerDimensionLine, Car } from "@lucide/astro";
 const { datos, estacionamiento } = Astro.props;
 ---
 
-<div class="stats shadow hidden lg:inline-grid">
+<div class="stats shadow hidden lg:inline-grid bg-zinc-800">
   {
     datos.areaTotal && (
-      <div class="stat bg-white">
+      <div class="stat">
         <div class="flex justify-center items-center gap-2">
-          <div class="stat-value">{datos.areaTotal}</div>
+          <div class="stat-value text-white">{datos.areaTotal}</div>
           <div class="stat-figure text-secondary">
             <RulerDimensionLine color="red" size="32" />
           </div>
@@ -19,9 +19,9 @@ const { datos, estacionamiento } = Astro.props;
   }
   {
     datos.habitaciones && (
-      <div class="stat bg-white">
+      <div class="stat">
         <div class="flex justify-center items-center gap-2">
-          <div class="stat-value">{datos.habitaciones}</div>
+          <div class="stat-value text-white">{datos.habitaciones}</div>
           <div class="stat-figure text-secondary">
             <BedDouble color="red" size="32" />
           </div>
@@ -34,9 +34,9 @@ const { datos, estacionamiento } = Astro.props;
   }
   {
     datos.banos && (
-      <div class="stat bg-white">
+      <div class="stat">
         <div class="flex justify-center items-center gap-2">
-          <div class="stat-value">{datos.banos}</div>
+          <div class="stat-value text-white">{datos.banos}</div>
           <div class="stat-figure text-secondary">
             <Bath color="red" size="32" />
           </div>
@@ -49,7 +49,7 @@ const { datos, estacionamiento } = Astro.props;
   }
   {
     estacionamiento && (
-      <div class="stat bg-white">
+      <div class="stat">
         <div class="flex justify-center items-center gap-2">
           <div class="stat-figure text-secondary">
             <Car color="red" size="32" />

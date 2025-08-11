@@ -16,7 +16,7 @@ const { title, description, url, image, keywords } = Astro.props
 ---
 
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="halloween">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -46,7 +46,9 @@ const { title, description, url, image, keywords } = Astro.props
   </head>
   <body class="bg-base-200 text-base-content">
     <Header />
-    <slot />
+    <div class="mt-2">
+      <slot />
+    </div>
     <Footer />
   </body>
 </html>

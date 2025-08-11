@@ -5,12 +5,12 @@ import { nuevas } from "@lib/propiedades";
 import Card from "@components/inicio/Card.astro";
 ---
 
-<div class="bg-gray-200 pb-20">
+<div class="bg-stone-900 pb-20">
   <Container>
     <ContainerInterno>
       <div class="navbar w-full pt-10">
         <div class="navbar-start">
-          <h2 class="text-xl md:text-3xl">Propiedades Nuevas</h2>
+          <h2 class="text-xl md:text-3xl text-white">Propiedades Nuevas</h2>
         </div>
         <div class="navbar-end">
           <a href="/propiedades" class="link">Ver Todas</a>
@@ -21,7 +21,7 @@ import Card from "@components/inicio/Card.astro";
         apartamento de un dormitorio tiene un salón o comedor separado desde el
         dormitorio. Dos dormitorios, tres dormitorios, y más grandes.
       </p>
-      <div class="grid md:grid-cols-4 gap-2">
+      <div class="grid md:grid-cols-4 gap-4">
         {
           nuevas.map((propiedad) => (
             <Card

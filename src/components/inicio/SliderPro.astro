@@ -10,13 +10,13 @@ import Card from "@components/inicio/Card.astro";
     <ContainerInterno>
       <div class="navbar w-full py-10">
         <div class="navbar-start">
-          <h2 class="text-xl md:text-3xl">Propiedades Destacadas</h2>
+          <h2 class="text-xl md:text-3xl text-white">Propiedades Destacadas</h2>
         </div>
         <div class="navbar-end">
           <a href="/propiedades" class="link">Ver Todas</a>
         </div>
       </div>
-      <div class="grid md:grid-cols-4 gap-2">
+      <div class="grid md:grid-cols-4 gap-4">
         {
           destacadas.map((propiedad) => (
             <Card

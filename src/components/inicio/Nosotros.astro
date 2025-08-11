@@ -12,15 +12,19 @@ import Equipo from "@components/extras/Equipo.astro";
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="col-span-1 flex items-center justify-center">
             <img
-              src="/logo-nuevo-ng.svg"
+              src="/logo-nuevo-bl.svg"
               alt="Logo Marsol Propiedades"
               class="h-32 md:h-56"
             />
           </div>
-          <div class="col-span-1 flex items-center justify-center fondo-semi">
+          <div
+            class="col-span-1 flex items-center justify-center fondo-semi rounded-lg"
+          >
             <Equipo />
           </div>
-          <div class="col-span-1 flex items-center justify-center fondo-semi">
+          <div
+            class="col-span-1 flex items-center justify-center fondo-semi rounded-lg"
+          >
             <Agente />
           </div>
         </div>
@@ -40,6 +44,6 @@ import Equipo from "@components/extras/Equipo.astro";
   }
 
   .fondo-semi {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.2);
   }
 </style>
