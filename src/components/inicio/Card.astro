@@ -10,6 +10,7 @@ const {
   operacion,
   datos,
   estacionamiento,
+  bodega,
 } = Astro.props;
 ---
 
@@ -45,47 +46,52 @@ const {
           </div>
         </li>
         <li class="list-row p-2">
-          <div class="justify-end">
-            <div class="grid gap-1">
-              <div>
-                {
-                  datos.areaTotal && (
-                    <div class="tooltip" data-tip="Área total">
-                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
-                        {datos.areaTotal} m²
-                      </span>
-                    </div>
-                  )
-                }
-                {
-                  datos.banos && (
-                    <div class="tooltip" data-tip="Baños">
-                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
-                        {datos.banos} Bañ.
-                      </span>
-                    </div>
-                  )
-                }
-                {
-                  datos.habitaciones && (
-                    <div class="tooltip" data-tip="Dormitorios">
-                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
-                        {datos.habitaciones} Dorm.
-                      </span>
-                    </div>
-                  )
-                }
-                {
-                  estacionamiento && (
-                    <div class="tooltip" data-tip="Estacionamiento">
-                      <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
-                        Estac.
-                      </span>
-                    </div>
-                  )
-                }
-              </div>
-            </div>
+          <div class="grid gap-1">
+            {
+              datos.areaTotal && (
+                <div class="tooltip" data-tip="Área total">
+                  <span class="flex items-center badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                    {datos.areaTotal} m²
+                  </span>
+                </div>
+              )
+            }
+            {
+              datos.banos && (
+                <div class="tooltip" data-tip="Baños">
+                  <span class="flex items-center badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                    {datos.banos} Bañ.
+                  </span>
+                </div>
+              )
+            }
+            {
+              datos.habitaciones && (
+                <div class="tooltip" data-tip="Dormitorios">
+                  <span class="flex items-center badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                    {datos.habitaciones} Dorm.
+                  </span>
+                </div>
+              )
+            }
+            {
+              estacionamiento && (
+                <div class="tooltip" data-tip="Estacionamiento">
+                  <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                    Estac.
+                  </span>
+                </div>
+              )
+            }
+            <!-- {
+              bodega && (
+                <div class="tooltip" data-tip="Bodega">
+                  <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">
+                    Bod.
+                  </span>
+                </div>
+              )
+            } -->
           </div>
         </li>
       </ul>

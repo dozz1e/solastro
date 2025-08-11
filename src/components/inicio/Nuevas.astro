@@ -21,7 +21,7 @@ import Card from "@components/inicio/Card.astro";
         apartamento de un dormitorio tiene un salón o comedor separado desde el
         dormitorio. Dos dormitorios, tres dormitorios, y más grandes.
       </p>
-      <div class="grid md:grid-cols-4 gap-4">
+      <div class="grid md:grid-cols-4 gap-2">
         {
           nuevas.map((propiedad) => (
             <Card
@@ -37,6 +37,7 @@ import Card from "@components/inicio/Card.astro";
               estacionamiento={propiedad.incluye.incluye.includes(
                 "Estacionamiento"
               )}
+              bodega={propiedad.incluye.incluye.includes("Bodega")}
             />
           ))
         }

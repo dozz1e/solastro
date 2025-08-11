@@ -26,8 +26,6 @@ const seo: Seo = {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="propiedadesPage">
           {
             propiedades.map((propiedad) => {
-              let esta =
-                "Estacionamiento".indexOf(propiedad.incluye.incluye) > -1;
               return (
                 <Card
                   ciudad={propiedad.direccion.ciudad}
@@ -39,7 +37,16 @@ const seo: Seo = {
                   tipo={propiedad.categoriaGraphql.categoria}
                   operacion={propiedad.operacion.operacion}
                   datos={propiedad.datos}
-                  estacionamiento={esta}
+                  estacionamiento={
+                    propiedad.incluye.incluye
+                      ? propiedad.incluye.incluye.includes("Estacionamiento")
+                      : false
+                  }
+                  bodega={
+                    propiedad.incluye.incluye
+                      ? propiedad.incluye.incluye.includes("Bodega")
+                      : false
+                  }
                 />
               );
             })

@@ -16,7 +16,7 @@ import Card from "@components/inicio/Card.astro";
           <a href="/propiedades" class="link">Ver Todas</a>
         </div>
       </div>
-      <div class="grid md:grid-cols-4 gap-4">
+      <div class="grid md:grid-cols-4 gap-2">
         {
           destacadas.map((propiedad) => (
             <Card
@@ -32,6 +32,7 @@ import Card from "@components/inicio/Card.astro";
               estacionamiento={propiedad.incluye.incluye.includes(
                 "Estacionamiento"
               )}
+              bodega={propiedad.incluye.incluye.includes("Bodega")}
             />
           ))
         }
