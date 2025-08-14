@@ -9,7 +9,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
   >
     <div class="card-body p-4">
       <form id="buscadorForm" action="">
-        <div class="grid grid-cols-1 md:grid-cols-10 gap-5">
+        <div class="grid grid-cols-1 xl:grid-cols-10 gap-5">
           <div class="rounded-lg p-2 col-span-1 md:col-span-3">
             <fieldset class="fieldset p-0">
               <legend class="fieldset-legend p-0">Tipo</legend>
@@ -41,7 +41,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
           <div class="col-span-1 flex justify-center items-center">
             <a
               id="buscar"
-              class="btn btn-xl bg-red-400 hover:bg-red-700 text-white rounded-lg"
+              class="btn w-full md:btn-xl bg-red-400 hover:bg-red-700 text-white rounded-lg"
             >
               Buscar
             </a>
@@ -52,7 +52,11 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
   </div>
 </div>
 <ContainerInterno>
-  <div id="resultados" class="grid grid-cols-1 md:grid-cols-4 gap-4"></div>
+  <div
+    id="resultados"
+    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-2"
+  >
+  </div>
 </ContainerInterno>
 
 <script>
@@ -114,7 +118,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
                   </div>
                 </div>
               </figure>
-              <div class="bg-gray-100 px-2 py-1">${propiedad.categoriaGraphql.categoria} en ${propiedad.operacion.operacion}</div>
+              <div class="bg-zinc-800 px-2 py-1">${propiedad.categoriaGraphql.categoria} en ${propiedad.operacion.operacion}</div>
               <div class="card-body p-0">
                 <ul class="list">
                   <li class="list-row flex flex-col gap-1 h-20">
@@ -133,10 +137,17 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
                     <div class="justify-end">
                       <div class="grid gap-1">
                         <div>
-                          ${propiedad.datos.areaTotal ? `<div class="tooltip" data-tip="Área total"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.areaTotal} m²</span></div>` : ""} 
-                          ${propiedad.datos.banos ? `<div class="tooltip" data-tip="Baños"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.banos} Bañ.</span></div>` : ""}
-                          ${propiedad.datos.habitaciones ? `<div class="tooltip" data-tip="Dormitorios"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.habitaciones} Dorm.</span></div>` : ""}
-                          ${propiedad.incluye.estacionamiento ? `<div class="tooltip" data-tip="Estacionamiento"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">Estac.</span></div>` : ""}
+                          ${propiedad.datos.areaTotal ? `<div class="tooltip" data-tip="Área total: ${propiedad.datos.areaTotal} m²"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.areaTotal} m²</span></div>` : ""} 
+                          ${propiedad.datos.banos ? `<div class="tooltip" data-tip="${propiedad.datos.banos > 1 ? `${propiedad.datos.banos} Baños` : "1 Baño"}"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.banos}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bath-icon lucide-bath"><path d="M10 4 8 6"/><path d="M17 19v2"/><path d="M2 12h20"/><path d="M7 19v2"/><path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></svg></span></div>` : ""}
+                          ${propiedad.datos.habitaciones ? `<div class="tooltip" data-tip="${propiedad.datos.habitaciones > 1 ? `${propiedad.datos.habitaciones} Habitaciones` : "1 Habitación"}"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.habitaciones}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bed-double-icon lucide-bed-double"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg></span></div>` : ""}
+                          ${
+                            propiedad.incluye.incluye.includes(
+                              "Estacionamiento"
+                            )
+                              ? `<div class="tooltip" data-tip="Estacionamiento"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car-icon lucide-car"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></span></div>`
+                              : ""
+                          }
+                          ${propiedad.incluye.incluye.includes("Bodega") ? `<div class="tooltip" data-tip="Bodega"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">Bod</span></div>` : ""}
                         </div>
                       </div>
                     </div>

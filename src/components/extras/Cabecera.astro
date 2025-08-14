@@ -9,7 +9,14 @@ const { title, pagina } = Astro.props;
   <div class="hero-overlay"></div>
   <div class="hero-content text-center">
     <div class="max-w-md">
-      <h1 class="text-5xl font-bold text-white">{title}</h1>
+      <h1 class="text-5xl font-bold text-white flex items-center">
+        {title}
+        <img
+          src="/favicon.svg"
+          alt="Logo Marsol Propiedades"
+          class="w-16 ml-2"
+        />
+      </h1>
     </div>
   </div>
 </div>

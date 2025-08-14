@@ -12,17 +12,22 @@ import Buscardor from "@components/inicio/Buscador.astro";
         class="w-full object-top"
       />
     </figure>
-    <div class="card-body md:absolute md:top-20 md:left-10">
-      <h1
-        class="card-title md:text-6xl md:max-w-md text-shadow-lg/30 pb-4 text-center md:text-left"
-      >
-        Vendemos o arrendamos su propiedad
-      </h1>
-      <p
-        class="md:text-xl md:max-w-md text-shadow-lg/30 text-center md:text-left"
-      >
-        ¿Necesitas vender o arrendar? Confía en los mejores profesionales
-      </p>
+    <div class="card-body grid grid-cols-3 place-content-center">
+      <div class="col-span-2 lg:flex lg:flex-col lg:items-center">
+        <h1
+          class="card-title md:text-6xl md:max-w-md text-shadow-lg/30 pb-4 text-center md:text-left"
+        >
+          Vendemos o arrendamos su propiedad
+        </h1>
+        <p
+          class="md:text-xl md:max-w-md text-shadow-lg/30 text-center md:text-left"
+        >
+          ¿Necesitas vender o arrendar? Confía en los mejores profesionales
+        </p>
+      </div>
+      <div class="col-span-1">
+        <img src="/favicon.svg" alt="Logo Marsol Propiedades" class="w-32" />
+      </div>
     </div>
   </div>
   <Buscardor />
