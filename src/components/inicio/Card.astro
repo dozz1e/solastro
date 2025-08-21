@@ -15,9 +15,15 @@ const {
   tipo,
   operacion,
   datos,
-  estacionamiento,
-  bodega,
+  incluido,
 } = Astro.props;
+let estacionamiento = false;
+let bodega = false;
+
+if (incluido && incluido.length > 0) {
+  estacionamiento = incluido.includes("Estacionamiento");
+  bodega = incluido.includes("Bodega");
+}
 ---
 
 <a href={`/propiedades/${slug}`}>

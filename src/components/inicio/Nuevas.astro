@@ -34,10 +34,7 @@ import Card from "@components/inicio/Card.astro";
               tipo={propiedad.categoriaGraphql.categoria}
               operacion={propiedad.operacion.operacion}
               datos={propiedad.datos}
-              estacionamiento={propiedad.incluye.incluye.includes(
-                "Estacionamiento"
-              )}
-              bodega={propiedad.incluye.incluye.includes("Bodega")}
+              incluido={propiedad.incluye.incluye}
             />
           ))
         }
