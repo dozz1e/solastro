@@ -1,0 +1,34 @@
+---
+import { VolumeOff, Volume2 } from "@lucide/astro";
+---
+
+<div class="relative w-2xs">
+  <div class="absolute right-1 bottom-1" id="buttonvolume">
+    <div id="volumeoff">
+      <VolumeOff />
+    </div>
+    <div id="volume" class="hidden">
+      <Volume2 />
+    </div>
+  </div>
+  <video src="/videos/1.mp4" class="video" id="video" autoplay loop muted
+  ></video>
+</div>
+
+<script>
+  const volume = document.getElementById("volume");
+  const volumeoff = document.getElementById("volumeoff");
+  const video = document.getElementById("video");
+
+  volumeoff.addEventListener("click", function () {
+    volumeoff.classList.add("hidden");
+    volume.classList.remove("hidden");
+    video.muted = false;
+  });
+
+  volume.addEventListener("click", function () {
+    volume.classList.add("hidden");
+    volumeoff.classList.remove("hidden");
+    video.muted = true;
+  });
+</script>

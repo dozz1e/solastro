@@ -1,0 +1,25 @@
+---
+// In your .astro page or component's frontmatter:
+const now = new Date();
+---
+
+<div
+  id="clock"
+  class="font-bold bg-red-800 text-white flex justify-center align-center rounded-lg p-2"
+>
+</div>
+
+<script define:vars={{ now }}>
+  function updateClock() {
+    const clockElement = document.getElementById("clock");
+    const date = new Date(now); // Use the time passed from the frontmatter
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    clockElement.textContent = `${hours}:${minutes}`;
+  }
+
+  // Initial call
+  updateClock();
+  // Update every second
+  setInterval(updateClock, 1000);
+</script>

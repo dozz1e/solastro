@@ -39,7 +39,7 @@ if (incluido && incluido.length > 0) {
       <div
         class="card-body bg-gradient-to-t from-black/80 to-transparent absolute bottom-0 w-full p-4"
       >
-        <div class="badge border-none text-white bg-red-700 px-2 w-fit">
+        <div class="badge border-none text-white bg-red-800 px-2 w-fit">
           {precio && `$${precio} CLP`}
           {precioUf && `${precioUf} UF`}
         </div>
@@ -65,7 +65,7 @@ if (incluido && incluido.length > 0) {
                   class="tooltip"
                   data-tip={`Área Total: ${datos.areaTotal} m²`}
                 >
-                  <span class="flex items-center badge bg-red-400 hover:bg-red-700 border-none text-white text-xs rounded-sm">
+                  <span class="flex items-center badge bg-red-700 hover:bg-red-800 border-none text-white text-xs rounded-sm">
                     {datos.areaTotal} m²
                   </span>
                 </div>
@@ -77,7 +77,7 @@ if (incluido && incluido.length > 0) {
                   class="tooltip"
                   data-tip={datos.banos > 1 ? `${datos.banos} Baños` : "1 Baño"}
                 >
-                  <span class="flex items-center badge bg-red-400 hover:bg-red-700 border-none text-white text-xs rounded-sm">
+                  <span class="flex items-center badge bg-red-700 hover:bg-red-800 border-none text-white text-xs rounded-sm">
                     {datos.banos} <Bath size="16" color="white" />
                   </span>
                 </div>
@@ -93,7 +93,7 @@ if (incluido && incluido.length > 0) {
                       : "1 Dormitorio"
                   }
                 >
-                  <span class="flex items-center badge bg-red-400 hover:bg-red-700 border-none text-white text-xs rounded-sm">
+                  <span class="flex items-center badge bg-red-700 hover:bg-red-800 border-none text-white text-xs rounded-sm">
                     {datos.habitaciones} <BedDouble size="16" color="white" />
                   </span>
                 </div>
@@ -102,7 +102,7 @@ if (incluido && incluido.length > 0) {
             {
               estacionamiento && (
                 <div class="tooltip" data-tip="Estacionamiento">
-                  <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs rounded-sm">
+                  <span class="badge bg-red-700 hover:bg-red-800 border-none text-white text-xs rounded-sm">
                     <Car size="16" color="white" />
                   </span>
                 </div>
@@ -111,7 +111,7 @@ if (incluido && incluido.length > 0) {
             {
               bodega && (
                 <div class="tooltip" data-tip="Bodega">
-                  <span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs rounded-sm">
+                  <span class="badge bg-red-700 hover:bg-red-800 border-none text-white text-xs rounded-sm">
                     Bod
                   </span>
                 </div>
