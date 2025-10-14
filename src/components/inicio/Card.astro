@@ -28,13 +28,13 @@ if (incluido && incluido.length > 0) {
 
 <a href={`/propiedades/${slug}`}>
   <div
-    class="card bg-base-100 shadow-lg col-span-1 hover:shadow-xl transition-shadow duration-300 rounded-md"
+    class="card shadow-lg col-span-1 transition-shadow duration-300 rounded-md"
   >
     <figure class="relative">
       <img
         src={`https://marsolpropiedades.cl/images/propiedades/${slug}/mini.webp`}
         alt={direccion}
-        class="w-full object-cover h-[250px] hover:scale-110 transition-all duration-300"
+        class="w-full object-cover hover:scale-110 transition-all duration-300 img-card"
       />
       <div
         class="card-body bg-gradient-to-t from-black/80 to-transparent absolute bottom-0 w-full p-4"
@@ -45,8 +45,8 @@ if (incluido && incluido.length > 0) {
         </div>
       </div>
     </figure>
-    <div class="bg-zinc-800 px-2 py-1">{tipo} en {operacion}</div>
-    <div class="card-body p-0">
+    <div class="bg-zinc-700 px-2 py-1">{tipo} en {operacion}</div>
+    <div class="card-body p-0 bg-neutral-800 rounded-br-md rounded-bl-md">
       <ul class="list">
         <li class="list-row flex flex-col gap-1 h-20">
           <header class="overflow-hidden text-ellipsis">
@@ -123,3 +123,9 @@ if (incluido && incluido.length > 0) {
     </div>
   </div>
 </a>
+
+<style>
+  .img-card {
+    height: 250px;
+  }
+</style>
