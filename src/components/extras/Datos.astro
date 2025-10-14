@@ -1,9 +1,6 @@
 ---
 import Reloj from "@components/extras/Reloj.astro";
 import { Mail, Phone } from "@lucide/astro";
-const datos = await fetch("https://mindicador.cl/api").then((res) =>
-  res.json(),
-);
 ---
 
 <div class="flex items-center justify-between lg:mb-2">
@@ -13,13 +10,13 @@ const datos = await fetch("https://mindicador.cl/api").then((res) =>
       <div class="col-span-1 rounded-lg bg-red-800 text-white p-2">
         <div class="flex flex-col md:flex-row gap-4 items-center">
           <p class="font-bold">UF</p>
-          <p class="font-bold">{datos.uf.valor}</p>
+          <p class="font-bold" id="uf"></p>
         </div>
       </div>
       <div class="col-span-1 rounded-lg bg-slate-800 p-2">
         <div class="flex flex-col md:flex-row gap-4 items-center">
           <p class="font-bold">Dolar</p>
-          <p class="font-bold">{datos.dolar.valor}</p>
+          <p class="font-bold" id="dolar"></p>
         </div>
       </div>
     </div>
@@ -38,3 +35,23 @@ const datos = await fetch("https://mindicador.cl/api").then((res) =>
     >
   </div>
 </div>
+
+<script client:only>
+  const updateData = async () => {
+    const uf = document.getElementById("uf");
+    const dolar = document.getElementById("dolar");
+    fetch("https://mindicador.cl/api")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (dailyIndicators) {
+        uf.innerHTML = dailyIndicators.uf.valor;
+        dolar.innerHTML = dailyIndicators.dolar.valor;
+      })
+      .catch(function (error) {
+        console.log("Error en la solicitud: ", error);
+      });
+  };
+
+  updateData();
+</script>

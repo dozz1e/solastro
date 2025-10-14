@@ -9,17 +9,22 @@ const now = new Date();
 >
 </div>
 
-<script define:vars={{ now }}>
-  function updateClock() {
-    const clockElement = document.getElementById("clock");
-    const date = new Date(now); // Use the time passed from the frontmatter
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-    clockElement.textContent = `${hours}:${minutes}`;
+<script define:vars={{ now }} client:only>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    m = checkTime(m);
+    document.getElementById("clock").innerHTML = h + ":" + m;
+    setTimeout(startTime, 1000);
   }
 
-  // Initial call
-  updateClock();
-  // Update every second
-  setInterval(updateClock, 1000);
+  function checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    } // add zero in front of numbers < 10
+    return i;
+  }
+
+  startTime();
 </script>
