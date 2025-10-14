@@ -4,7 +4,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
 import Ultimas from "@components/propiedad/Ultimas.astro";
 ---
 
-<div id="buscador-lateral" class="card">
+<div id="buscador-lateral" class="card rounded-md">
   <div class="card-body">
     <form action="" class="hidden md:block">
       <fieldset class="fieldset p-0 mb-1">
@@ -28,7 +28,7 @@ import Ultimas from "@components/propiedad/Ultimas.astro";
       </fieldset>
       <a
         id="buscarPage"
-        class="btn btn-lg bg-red-400 hover:bg-red-700 text-white rounded-lg w-full mt-1"
+        class="btn btn-lg bg-red-400 hover:bg-red-700 text-white rounded-md w-full mt-1"
       >
         Buscar
       </a>
@@ -87,7 +87,7 @@ import Ultimas from "@components/propiedad/Ultimas.astro";
       propiedadesFiltradas.forEach((propiedad) => {
         resultados.innerHTML += `
           <a href="/propiedades/${propiedad.slug}" class="col-span-1">
-            <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-md">
               <figure class="relative">
                 <img
                   src="https://marsolpropiedades.cl/images/propiedades/${propiedad.slug}/1.webp"

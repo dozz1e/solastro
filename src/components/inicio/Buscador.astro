@@ -5,12 +5,12 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
 
 <div class="flex justify-center">
   <div
-    class="card card-border bg-base-100 w-full h-auto rounded-3xl -mt-4 lg:-mt-10 buscador"
+    class="card card-border bg-base-100 w-full h-auto rounded-md -mt-4 lg:-mt-10 buscador"
   >
     <div class="card-body p-4">
       <form id="buscadorForm" action="">
         <div class="grid grid-cols-1 xl:grid-cols-10 gap-5">
-          <div class="rounded-lg p-2 col-span-1 md:col-span-3">
+          <div class="rounded-md p-2 col-span-1 md:col-span-3">
             <fieldset class="fieldset p-0">
               <legend class="fieldset-legend p-0">Tipo</legend>
               <select class="select select-ghost w-full text-lg">
@@ -19,7 +19,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
               </select>
             </fieldset>
           </div>
-          <div class="rounded-lg p-2 col-span-1 md:col-span-3">
+          <div class="rounded-md p-2 col-span-1 md:col-span-3">
             <fieldset class="fieldset p-0">
               <legend class="fieldset-legend p-0">Ciudad</legend>
               <select class="select select-ghost w-full text-lg">
@@ -28,7 +28,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
               </select>
             </fieldset>
           </div>
-          <div class="rounded-lg p-2 col-span-1 md:col-span-3">
+          <div class="rounded-md p-2 col-span-1 md:col-span-3">
             <fieldset class="fieldset p-0">
               <legend class="fieldset-legend p-0">Operación</legend>
               <select class="select select-ghost w-full text-lg">
@@ -41,7 +41,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
           <div class="col-span-1 flex justify-center items-center">
             <a
               id="buscar"
-              class="btn w-full md:btn-xl bg-red-700 hover:bg-red-800 text-white rounded-lg"
+              class="btn w-full md:btn-xl bg-red-700 hover:bg-red-800 text-white rounded-md"
             >
               Buscar
             </a>
@@ -112,7 +112,7 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
 
         resultados.innerHTML += `
           <a href="/propiedades/${propiedad.slug}" class="col-span-1">
-            <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-md">
               <figure class="relative">
                 <img
                   src="https://marsolpropiedades.cl/images/propiedades/${propiedad.slug}/1.webp"

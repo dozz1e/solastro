@@ -54,7 +54,7 @@ const vistas = [
         <div class="grid grid-cols-1 gap-4">
           {
             vistas.map((vs) => (
-              <div class="col-span-1 md:flex md:justify-end">
+              <div class="card rounded-md col-span-1 md:flex md:justify-end">
                 <button
                   class="btn text-gray-200 border-1 border-gray-300 w-full lg:w-96 btn-xl"
                   onclick={`document.getElementById("modal_${vs.id}").showModal()`}
