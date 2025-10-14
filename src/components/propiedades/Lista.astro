@@ -3,7 +3,7 @@ const { imagen, ciudad, direccion, slug } = Astro.props;
 ---
 
 <li class="hover:bg-gray-700">
-  <a href={`/propiedades/${slug}`} class="list-row">
+  <a href={`/propiedades/${slug}`} class="list-row p-2">
     <div>
       <img class="w-16 h-10 rounded-sm" src={imagen} alt={direccion} />
     </div>
