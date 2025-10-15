@@ -38,6 +38,8 @@ const response = await fetch("https://marsolpropiedades.cl/data/graphql", {
             banos
             habitaciones
             galeria
+            video
+            urlVideo
           }
           categoriaGraphql {
             categoria

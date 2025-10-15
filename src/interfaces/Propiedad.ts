@@ -36,6 +36,8 @@ interface Datos {
   banos: number;
   habitaciones: number;
   galeria: number;
+  video: number;
+  urlVideo: string;
 }
 
 // Interface para Categoría

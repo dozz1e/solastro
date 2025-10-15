@@ -2,6 +2,8 @@
 import Stat from "@components/propiedad/Stat.astro";
 import ShareButtons from "@components/extras/ShareButtons.astro";
 import { PercentIcon } from "@lucide/astro";
+import Video from "@components/propiedad/Video.astro";
+
 const { propiedad } = Astro.props;
 const esta = propiedad.incluye.incluye
   ? propiedad.incluye.incluye.includes("Estacionamiento")
@@ -10,45 +12,69 @@ const esta = propiedad.incluye.incluye
 
 <div class="card card-xl shadow-sm mt-2 md:mb-2 bg-stone-900 rounded-md">
   <div class="card-body">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="col-span-2">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div class="col-span-1 lg:col-span-2">
         <h4 class="subtitle">
           {propiedad.categoriaGraphql.categoria} en {
             propiedad.operacion.operacion
           }
         </h4>
-        <div class="md:pb-4 md:pt-2">
-          <h1 class="card-title text-3xl text-white">{propiedad.title}</h1>
+        <div class="lg:mt-2">
+          <h1 class="card-title text-4xl text-white">{propiedad.title}</h1>
           <span class="text-gray-400">{propiedad.direccion.ciudad}</span>
         </div>
 
-        <div class="card-actions">
+        <div class="card-actions my-8">
           {
             propiedad.datos && (
               <Stat datos={propiedad.datos} estacionamiento={esta} />
             )
           }
         </div>
+        {
+          propiedad.datos.video != null && (
+            <div>
+              <div class="grid grid-cols-1 gap-4">
+                <div class="bg-red-700 text-white text-3xl font-bold p-4 rounded-md text-center w-full lg:w-96">
+                  {propiedad.precio.precio
+                    ? `$${propiedad.precio.precio} CLP`
+                    : propiedad.precio.precioUf + " UF"}
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">Compartir</span>
+                  <ShareButtons
+                    url={`https://marsolpropiedades.cl/propiedades/${propiedad.slug}`}
+                    title={propiedad.title}
+                  />
+                </div>
+              </div>
+            </div>
+          )
+        }
       </div>
       <div class="col-span-1">
-        <div class="grid grid-cols-1 gap-2">
-          <div
-            class="bg-red-700 text-white text-2xl font-bold p-4 rounded-md text-center"
-          >
-            {
-              propiedad.precio.precio
-                ? `$${propiedad.precio.precio} CLP`
-                : propiedad.precio.precioUf + " UF"
-            }
-          </div>
-          <div class="flex items-center justify-end gap-2">
-            <span class="text-lg">Compartir</span>
-            <ShareButtons
-              url={`https://marsolpropiedades.cl/propiedades/${propiedad.slug}`}
-              title={propiedad.title}
+        {
+          propiedad.datos.video === 1 ? (
+            <Video
+              src={`https://marsolpropiedades.cl/videos/propiedades/${propiedad.slug}/1.mp4`}
             />
-          </div>
-        </div>
+          ) : (
+            <div class="grid grid-cols-1 gap-2">
+              <div class="bg-red-700 text-white text-2xl font-bold p-4 rounded-md text-center">
+                {propiedad.precio.precio
+                  ? `$${propiedad.precio.precio} CLP`
+                  : propiedad.precio.precioUf + " UF"}
+              </div>
+              <div class="flex items-center justify-end gap-4">
+                <span class="text-lg">Compartir</span>
+                <ShareButtons
+                  url={`https://marsolpropiedades.cl/propiedades/${propiedad.slug}`}
+                  title={propiedad.title}
+                />
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
   </div>

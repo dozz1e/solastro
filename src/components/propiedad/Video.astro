@@ -1,8 +1,9 @@
 ---
 import { VolumeOff, Volume2 } from "@lucide/astro";
+const { src } = Astro.props;
 ---
 
-<div class="relative w-2xs">
+<div class="relative w-full lg:w-2xs">
   <div class="absolute right-1 bottom-1 z-10" id="buttonvolume">
     <div id="volumeoff">
       <VolumeOff />
@@ -11,13 +12,8 @@ import { VolumeOff, Volume2 } from "@lucide/astro";
       <Volume2 />
     </div>
   </div>
-  <video
-    src="/videos/1.mp4"
-    class="video rounded-md"
-    id="video"
-    autoplay
-    loop
-    muted></video>
+  <video src={src} class="video rounded-md" id="video" autoplay loop muted
+  ></video>
 </div>
 
 <script>
