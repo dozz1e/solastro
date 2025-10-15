@@ -8,9 +8,9 @@ const { datos, estacionamiento } = Astro.props;
     datos.areaTotal && (
       <div class="stat">
         <div class="flex justify-center items-center gap-2">
-          <div class="stat-value text-white">{datos.areaTotal}</div>
+          <div class="stat-value text-white text-xl">{datos.areaTotal}</div>
           <div class="stat-figure text-secondary">
-            <RulerDimensionLine color="red" size="32" />
+            <RulerDimensionLine color="red" size="24" />
           </div>
         </div>
         <div class="stat-desc flex justify-center">Área Total (mt2)</div>
@@ -21,9 +21,9 @@ const { datos, estacionamiento } = Astro.props;
     datos.habitaciones && (
       <div class="stat">
         <div class="flex justify-center items-center gap-2">
-          <div class="stat-value text-white">{datos.habitaciones}</div>
+          <div class="stat-value text-white text-xl">{datos.habitaciones}</div>
           <div class="stat-figure text-secondary">
-            <BedDouble color="red" size="32" />
+            <BedDouble color="red" size="24" />
           </div>
         </div>
         <div class="stat-desc flex justify-center">
@@ -36,9 +36,9 @@ const { datos, estacionamiento } = Astro.props;
     datos.banos && (
       <div class="stat">
         <div class="flex justify-center items-center gap-2">
-          <div class="stat-value text-white">{datos.banos}</div>
+          <div class="stat-value text-white text-xl">{datos.banos}</div>
           <div class="stat-figure text-secondary">
-            <Bath color="red" size="32" />
+            <Bath color="red" size="24" />
           </div>
         </div>
         <div class="stat-desc flex justify-center">
@@ -52,7 +52,7 @@ const { datos, estacionamiento } = Astro.props;
       <div class="stat">
         <div class="flex justify-center items-center gap-2">
           <div class="stat-figure text-secondary">
-            <Car color="red" size="40" />
+            <Car color="red" size="28" />
           </div>
         </div>
         <div class="stat-desc flex justify-center items-end">
@@ -68,7 +68,7 @@ const { datos, estacionamiento } = Astro.props;
       datos.areaTotal && (
         <li class="list-row pl-0">
           <div>
-            <RulerDimensionLine color="red" size="32" />
+            <RulerDimensionLine color="red" size="24" />
           </div>
           <div>
             <div class="text-xs uppercase font-semibold opacity-60">
@@ -83,7 +83,7 @@ const { datos, estacionamiento } = Astro.props;
       datos.habitaciones && (
         <li class="list-row pl-0">
           <div>
-            <BedDouble color="red" size="32" />
+            <BedDouble color="red" size="24" />
           </div>
           <div>
             <div class="text-xs uppercase font-semibold opacity-60">
@@ -98,7 +98,7 @@ const { datos, estacionamiento } = Astro.props;
       datos.banos && (
         <li class="list-row pl-0">
           <div>
-            <Bath color="red" size="32" />
+            <Bath color="red" size="24" />
           </div>
           <div>
             <div class="text-xs uppercase font-semibold opacity-60">Baños</div>
@@ -111,7 +111,7 @@ const { datos, estacionamiento } = Astro.props;
       estacionamiento && (
         <li class="list-row pl-0">
           <div>
-            <Car color="red" size="32" />
+            <Car color="red" size="24" />
           </div>
           <div>Estacionamiento</div>
         </li>
