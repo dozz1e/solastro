@@ -13,28 +13,30 @@ const ttimages = cantidad - 4;
     />
   </div>
   <div class="lg:col-span-1">
-    <div class="grid grid-cols-3 lg:grid-cols-1 gap-2 alto">
-      <div class="col-span-1 h-full">
+    <div
+      class="grid grid-cols-3 lg:grid-flow-col lg:grid-rows-3 lg:grid-cols-1 gap-2 alto"
+    >
+      <div class="col-span-1 lg:row-span-1">
         <img
           src={`https://marsolpropiedades.cl/images/propiedades/${slug}/2.webp`}
           alt={`Imagen 2`}
-          class="gallery-img hover:shadow-xl h-full w-auto object-cover"
+          class="gallery-img hover:shadow-xl h-full w-full object-cover"
           data-index="1"
         />
       </div>
-      <div class="col-span-1 h-full">
+      <div class="col-span-1 lg:row-span-1">
         <img
           src={`https://marsolpropiedades.cl/images/propiedades/${slug}/3.webp`}
           alt={`Imagen 3`}
-          class="gallery-img hover:shadow-xl h-full w-auto object-cover"
+          class="gallery-img hover:shadow-xl h-full w-full object-cover"
           data-index="2"
         />
       </div>
-      <div class="col-span-1 relative">
+      <div class="col-span-1 relative lg:row-span-1">
         <img
           src={`https://marsolpropiedades.cl/images/propiedades/${slug}/4.webp`}
           alt={`Imagen 4`}
-          class="gallery-img hover:shadow-xl h-full w-auto object-cover"
+          class="gallery-img hover:shadow-xl h-full w-full object-cover"
           data-index="3"
         />
         <div

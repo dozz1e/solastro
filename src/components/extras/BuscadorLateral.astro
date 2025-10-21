@@ -120,10 +120,11 @@ import Ultimas from "@components/propiedad/Ultimas.astro";
                     <div class="justify-end">
                       <div class="grid gap-1">
                         <div>
-                          ${propiedad.datos.areaTotal ? `<div class="tooltip" data-tip="Área total"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.areaTotal} m²</span></div>` : ""} 
+                          ${propiedad.datos.areaTotal ? `<div class="tooltip" data-tip="Área total"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.areaTotal} m²</span></div>` : ""}
                           ${propiedad.datos.banos ? `<div class="tooltip" data-tip="Baños"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.banos} Bañ.</span></div>` : ""}
                           ${propiedad.datos.habitaciones ? `<div class="tooltip" data-tip="Dormitorios"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">${propiedad.datos.habitaciones} Dorm.</span></div>` : ""}
-                          ${propiedad.incluye.estacionamiento ? `<div class="tooltip" data-tip="Estacionamiento"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">Estac.</span></div>` : ""}
+                          ${propiedad.datos.estacionamiento ? `<div class="tooltip" data-tip="Estacionamiento"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">Estac.</span></div>` : ""}
+                          ${propiedad.datos.bodega ? `<div class="tooltip" data-tip="Bodega"><span class="badge bg-red-400 hover:bg-red-700 border-none text-white text-xs">Bod.</span></div>` : ""}
                         </div>
                       </div>
                     </div>

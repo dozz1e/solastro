@@ -40,6 +40,8 @@ const response = await fetch("https://marsolpropiedades.cl/data/graphql", {
             galeria
             video
             urlVideo
+            estacionamiento
+            bodega
           }
           categoriaGraphql {
             categoria

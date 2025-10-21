@@ -25,11 +25,7 @@ const esta = propiedad.incluye.incluye
         </div>
 
         <div class="card-actions my-8">
-          {
-            propiedad.datos && (
-              <Stat datos={propiedad.datos} estacionamiento={esta} />
-            )
-          }
+          {propiedad.datos && <Stat datos={propiedad.datos} />}
         </div>
         {
           propiedad.datos.video != null && (

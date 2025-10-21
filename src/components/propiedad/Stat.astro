@@ -1,12 +1,18 @@
 ---
-import { BedDouble, Bath, RulerDimensionLine, Car } from "@lucide/astro";
-const { datos, estacionamiento } = Astro.props;
+import {
+  BedDouble,
+  Bath,
+  RulerDimensionLine,
+  Car,
+  Archive,
+} from "@lucide/astro";
+const { datos } = Astro.props;
 ---
 
-<div class="stats shadow hidden lg:inline-grid bg-zinc-800 rounded-md">
+<div class="stats shadow hidden lg:inline-grid bg-zinc-800 rounded-md w-full">
   {
     datos.areaTotal && (
-      <div class="stat">
+      <div class="stat px-2 py-4">
         <div class="flex justify-center items-center gap-2">
           <div class="stat-value text-white text-xl">{datos.areaTotal}</div>
           <div class="stat-figure text-secondary">
@@ -19,7 +25,7 @@ const { datos, estacionamiento } = Astro.props;
   }
   {
     datos.habitaciones && (
-      <div class="stat">
+      <div class="stat px-2 py-4">
         <div class="flex justify-center items-center gap-2">
           <div class="stat-value text-white text-xl">{datos.habitaciones}</div>
           <div class="stat-figure text-secondary">
@@ -34,7 +40,7 @@ const { datos, estacionamiento } = Astro.props;
   }
   {
     datos.banos && (
-      <div class="stat">
+      <div class="stat px-2 py-4">
         <div class="flex justify-center items-center gap-2">
           <div class="stat-value text-white text-xl">{datos.banos}</div>
           <div class="stat-figure text-secondary">
@@ -48,9 +54,12 @@ const { datos, estacionamiento } = Astro.props;
     )
   }
   {
-    estacionamiento && (
-      <div class="stat">
+    datos.estacionamiento && (
+      <div class="stat px-2 py-4">
         <div class="flex justify-center items-center gap-2">
+          <div class="stat-value text-white text-xl">
+            {datos.estacionamiento}
+          </div>
           <div class="stat-figure text-secondary">
             <Car color="red" size="28" />
           </div>
@@ -58,6 +67,19 @@ const { datos, estacionamiento } = Astro.props;
         <div class="stat-desc flex justify-center items-end">
           Estacionamiento
         </div>
+      </div>
+    )
+  }
+  {
+    datos.bodega && (
+      <div class="stat px-2 py-4">
+        <div class="flex justify-center items-center gap-2">
+          <div class="stat-value text-white text-xl">{datos.bodega}</div>
+          <div class="stat-figure text-secondary">
+            <Archive color="red" size="24" />
+          </div>
+        </div>
+        <div class="stat-desc flex justify-center">Bodega</div>
       </div>
     )
   }
@@ -108,12 +130,30 @@ const { datos, estacionamiento } = Astro.props;
       )
     }
     {
-      estacionamiento && (
+      datos.estacionamiento && (
         <li class="list-row pl-0">
           <div>
             <Car color="red" size="24" />
           </div>
-          <div>Estacionamiento</div>
+          <div>
+            <div class="text-xs uppercase font-semibold opacity-60">
+              Estacionamientos
+            </div>
+            {datos.estacionamiento}
+          </div>
+        </li>
+      )
+    }
+    {
+      datos.bodega && (
+        <li class="list-row pl-0">
+          <div>
+            <Archive color="red" size="24" />
+          </div>
+          <div>
+            <div class="text-xs uppercase font-semibold opacity-60">Bodega</div>
+            {datos.bodega}
+          </div>
         </li>
       )
     }

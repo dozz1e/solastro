@@ -17,13 +17,6 @@ const {
   datos,
   incluido,
 } = Astro.props;
-let estacionamiento = false;
-let bodega = false;
-
-if (incluido && incluido.length > 0) {
-  estacionamiento = incluido.includes("Estacionamiento");
-  bodega = incluido.includes("Bodega");
-}
 ---
 
 <a href={`/propiedades/${slug}`}>
@@ -100,8 +93,15 @@ if (incluido && incluido.length > 0) {
               )
             }
             {
-              estacionamiento && (
-                <div class="tooltip" data-tip="Estacionamiento">
+              datos.estacionamiento && (
+                <div
+                  class="tooltip"
+                  data-tip={
+                    datos.estacionamiento > 1
+                      ? `${datos.estacionamiento} Estacionamientos`
+                      : "1 Estacionamiento"
+                  }
+                >
                   <span class="badge bg-red-700 hover:bg-red-800 border-none text-white text-xs rounded-sm">
                     <Car size="16" color="white" />
                   </span>
@@ -109,8 +109,13 @@ if (incluido && incluido.length > 0) {
               )
             }
             {
-              bodega && (
-                <div class="tooltip" data-tip="Bodega">
+              datos.bodega && (
+                <div
+                  class="tooltip"
+                  data-tip={
+                    datos.bodega > 1 ? `${datos.bodega} Bodegas` : "1 Bodega"
+                  }
+                >
                   <span class="badge bg-red-700 hover:bg-red-800 border-none text-white text-xs rounded-sm">
                     Bod
                   </span>
