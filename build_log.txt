@@ -1,0 +1,40 @@
+
+> solastro@0.0.1 build /mnt/01D95F3D5D0DF5A0/Trabajo/solastro
+> astro build
+
+12:35:57 [content] Syncing content
+12:35:57 [content] Synced content
+12:35:57 [types] Generated 73ms
+12:35:57 [build] output: "static"
+12:35:57 [build] mode: "static"
+12:35:57 [build] directory: /mnt/01D95F3D5D0DF5A0/Trabajo/solastro/dist/
+12:35:57 [build] Collecting build info...
+12:35:57 [build] ✓ Completed in 108ms.
+12:35:57 [build] Building static entrypoints...
+/*! 🌼 daisyUI 5.0.47 */
+12:36:03 [vite] ✓ built in 6.09s
+12:36:03 [build] ✓ Completed in 6.15s.
+
+ building client (vite) 
+12:36:03 [vite] transforming...
+12:36:03 [vite] ✓ 5 modules transformed.
+12:36:03 [vite] rendering chunks...
+12:36:03 [vite] computing gzip size...
+12:36:03 [vite] dist/_astro/propiedades.C4z55NND.js                                           1.45 kB │ gzip: 0.59 kB
+12:36:03 [vite] dist/_astro/BuscadorLateral.astro_astro_type_script_index_0_lang.DrEJu2XR.js  4.03 kB │ gzip: 1.46 kB
+12:36:03 [vite] dist/_astro/Buscador.astro_astro_type_script_index_0_lang.C__DOT6n.js         5.57 kB │ gzip: 1.85 kB
+12:36:03 [vite] ✓ built in 48ms
+
+ generating static routes 
+12:36:05 ▶ src/pages/contacto.astro
+12:36:05   └─ /contacto/index.html (+24ms) 
+12:36:05 ▶ src/pages/nosotros.astro
+12:36:05   └─ /nosotros/index.html (+6ms) 
+12:36:05 ▶ src/pages/propiedades/[slug].astro
+12:36:05   ├─ /propiedades/departamento-en-arriendo-cerro-polanco/index.htmlUnexpected token '<', "
+<?xml vers"... is not valid JSON
+  Stack trace:
+    at JSON.parse (<anonymous>)
+    at successSteps (node:internal/deps/undici/undici:6414:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+ ELIFECYCLE  Command failed with exit code 1.

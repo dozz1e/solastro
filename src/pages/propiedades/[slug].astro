@@ -51,6 +51,11 @@ if (propiedad.direccion.direccion) {
   dire = propiedad.direccion.direccion.replace(/ /g, "+") || "";
 }
 const mapa = `${dire}+${city}`;
+
+// Ensure slug begins with a leading slash for correct absolute URL usage in templates
+if (!propiedad.slug.startsWith('/')) {
+  propiedad.slug = '/' + propiedad.slug;
+}
 ---
 
 <LayoutPropiedad
