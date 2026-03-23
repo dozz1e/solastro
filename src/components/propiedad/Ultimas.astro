@@ -6,13 +6,16 @@ import Lista from "@components/propiedades/Lista.astro";
 <h3 class="text-xl p-2">Últimas Propiedades</h3>
 <ul class="list rounded-box shadow-md">
   {
-    nuevas.map((propiedad) => (
-      <Lista
-        imagen={`https://marsolpropiedades.cl/images/propiedades/${propiedad.slug}/mini.webp`}
-        ciudad={propiedad.direccion.ciudad}
-        direccion={propiedad.direccion.direccion}
-        slug={propiedad.slug}
-      />
-    ))
+    nuevas.map((propiedad) => {
+      const cleanSlug = propiedad.slug.startsWith('/') ? propiedad.slug.slice(1) : propiedad.slug;
+      return (
+        <Lista
+          imagen={`https://marsolpropiedades.cl/images/propiedades/${cleanSlug}/mini.webp`}
+          ciudad={propiedad.direccion.ciudad}
+          direccion={propiedad.direccion.direccion}
+          slug={propiedad.slug}
+        />
+      );
+    })
   }
 </ul>

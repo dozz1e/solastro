@@ -4,7 +4,9 @@ import ShareButtons from "@components/extras/ShareButtons.astro";
 import { PercentIcon } from "@lucide/astro";
 import Video from "@components/propiedad/Video.astro";
 
+import { removeNumbers } from "@utils/format";
 const { propiedad } = Astro.props;
+const title = removeNumbers(propiedad.title);
 const esta = propiedad.incluye.incluye
   ? propiedad.incluye.incluye.includes("Estacionamiento")
   : false;
@@ -20,7 +22,7 @@ const esta = propiedad.incluye.incluye
           }
         </h4>
         <div class="lg:mt-2">
-          <h1 class="card-title text-3xl text-white mb-2">{propiedad.title}</h1>
+          <h1 class="card-title text-3xl text-white mb-2">{title}</h1>
           <span class="text-gray-400">{propiedad.direccion.ciudad}</span>
         </div>
 
@@ -40,7 +42,7 @@ const esta = propiedad.incluye.incluye
                   <span class="text-lg">Compartir</span>
                   <ShareButtons
                     url={`https://marsolpropiedades.cl/propiedades/${propiedad.slug}`}
-                    title={propiedad.title}
+                    title={title}
                   />
                 </div>
               </div>
@@ -65,7 +67,7 @@ const esta = propiedad.incluye.incluye
                 <span class="text-lg">Compartir</span>
                 <ShareButtons
                   url={`https://marsolpropiedades.cl/propiedades/${propiedad.slug}`}
-                  title={propiedad.title}
+                  title={title}
                 />
               </div>
             </div>

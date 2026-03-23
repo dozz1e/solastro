@@ -1,9 +1,13 @@
 ---
-const { imagen, ciudad, direccion, slug } = Astro.props;
+import { removeNumbers } from "@utils/format";
+const { imagen, ciudad, direccion: rawDireccion, slug } = Astro.props;
+const direccion = removeNumbers(rawDireccion);
+// Normalizar el slug para evitar doble barra en las URLs (ej: /propiedades//slug)
+const cleanSlug = slug.startsWith('/') ? slug.slice(1) : slug;
 ---
 
 <li class="hover:bg-gray-700">
-  <a href={`/propiedades/${slug}`} class="list-row p-2">
+  <a href={`/propiedades/${cleanSlug}`} class="list-row p-2">
     <div>
       <img class="w-16 h-10 rounded-sm" src={imagen} alt={direccion} />
     </div>

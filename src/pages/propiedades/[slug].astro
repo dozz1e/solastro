@@ -13,6 +13,8 @@ import Extras from "@components/propiedad/Extras.astro";
 import Mapa from "@components/propiedad/Mapa.astro";
 import Aside from "@components/propiedad/Aside.astro";
 
+import { removeNumbers } from "@utils/format";
+
 export const getStaticPaths = (() => {
   return propiedades.map((propiedad: Propiedad) => ({
     params: { slug: propiedad.slug },
@@ -25,9 +27,10 @@ interface Props {
 }
 
 const propiedad = Astro.props.propiedad;
+const seoTitle = removeNumbers(propiedad.seo.title);
 
 const seo: Seo = {
-  title: propiedad.seo.title,
+  title: seoTitle,
   description: propiedad.seo.metaDesc,
   url: "https://www.marsolpropiedades.cl" + propiedad.slug,
   image:
@@ -84,7 +87,7 @@ if (!propiedad.slug.startsWith('/')) {
           )
         }
 
-        {mapa.length > 0 && <Mapa mapa={mapa} />}
+        {mapa.length > 0 && <Mapa mapa={mapa} slug={propiedad.slug} tipo={propiedad.categoriaGraphql.categoria} />}
       </div>
       <div class="col-span-1">
         <Aside

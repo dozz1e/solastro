@@ -25,7 +25,7 @@ export default defineConfig({
   },
 
   integrations: [
-    compressor({ gzip: true, brotli: false }),
+    compressor({ gzip: true }),
     purgecss({
       content: [
         "./src/**/*.{astro,js,ts}",

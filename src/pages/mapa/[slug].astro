@@ -1,0 +1,126 @@
+---
+import { propiedades } from "@lib/propiedades";
+import LayoutPropiedad from "@layouts/LayoutPropiedad.astro";
+import Mapa from "@components/propiedad/Mapa.astro";
+
+export async function getStaticPaths() {
+  return propiedades.map((propiedad) => ({
+    params: { slug: propiedad.slug.replace(/^\//, '') },
+    props: { propiedad },
+  }));
+}
+
+import { removeNumbers } from "@utils/format";
+const { propiedad } = Astro.props;
+const cleanTitle = removeNumbers(propiedad.title);
+
+// Normalizamos el slug para evitar doble barra en los enlaces de retorno
+const cleanSlug = propiedad.slug.startsWith('/') ? propiedad.slug.slice(1) : propiedad.slug;
+
+// Construimos la dirección para el mapa
+let city = propiedad.direccion.ciudad ? propiedad.direccion.ciudad.replace(/ /g, "+") : "";
+let dire = propiedad.direccion.direccion ? propiedad.direccion.direccion.replace(/ /g, "+") : "";
+const mapaQuery = `${dire}+${city}`;
+
+const seo = {
+  title: `Mapa de ${cleanTitle} - MarSol Propiedades`,
+  description: `Ubicación aproximada de ${cleanTitle} en ${propiedad.direccion.ciudad}.`,
+  url: `https://marsolpropiedades.cl/mapa/${cleanSlug}`,
+  image: `https://marsolpropiedades.cl/images/propiedades/${cleanSlug}/1.jpg`,
+  keywords: ["mapa", "ubicación", propiedad.direccion.ciudad]
+};
+---
+
+<LayoutPropiedad dataPag={seo}>
+    <div class="h-screen w-screen flex flex-col bg-stone-900 overflow-hidden">
+        <!-- Header minimalista para volver -->
+        <div class="p-4 bg-black/80 backdrop-blur-md flex justify-between items-center z-[3000]">
+             <a href={`/propiedades/${cleanSlug}`} class="flex items-center gap-2 text-white hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <span>Volver a la Propiedad</span>
+             </a>
+             <div class="hidden md:block text-stone-400 text-xs uppercase tracking-tighter">
+                {cleanTitle}
+             </div>
+        </div>
+
+        <!-- El mapa a pantalla completa real -->
+        <div class="flex-1 w-full relative">
+            <div id="full-property-map" 
+                 class="w-full h-full" 
+                 data-address={mapaQuery} 
+                 data-id={propiedad.slug}>
+            </div>
+            
+            <!-- Loader -->
+            <div id="full-map-loader" class="absolute inset-0 z-[2000] bg-stone-900 flex items-center justify-center text-stone-500 font-bold uppercase tracking-[0.2em] text-sm animate-pulse">
+                Cargando ubicación detallada...
+            </div>
+        </div>
+    </div>
+</LayoutPropiedad>
+
+<!-- Cargamos Leaflet desde CDN -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script is:inline>
+  function initFullMap() {
+    const el = document.getElementById('full-property-map');
+    if (!el || el._leaflet_id) return;
+
+    const address = el.dataset.address;
+    if (!address) return;
+
+    const clearLoader = () => {
+        const loader = document.getElementById('full-map-loader');
+        if (loader) loader.remove();
+    };
+
+    const cleaned = address.replace(/\s(of|oficina|depto|departamento|local|casa|sitio|lote|block|torre)\s?\.?\s?\w*/gi, '').replace(/\+/g, ' ').trim();
+    
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cleaned)}&limit=1`)
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                clearLoader();
+                const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+                const isDept = "{propiedad.categoriaGraphql.categoria}" === "Departamento";
+                const map = L.map('full-property-map', { zoomControl: true }).setView(coords, 18);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
+                
+                if (isDept) {
+                    L.marker(coords).addTo(map);
+                } else {
+                    L.circle(coords, { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, weight: 1.5, radius: 100 }).addTo(map);
+                }
+            } else {
+                 const fallback = cleaned.split(' ').slice(-1)[0];
+                 return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fallback)}&limit=1`)
+                    .then(r => r.json())
+                    .then(d2 => {
+                        clearLoader();
+                        if (d2 && d2.length > 0) {
+                             const c2 = [parseFloat(d2[0].lat), parseFloat(d2[0].lon)];
+                             const isDeptF = "{propiedad.categoriaGraphql.categoria}" === "Departamento";
+                             const m2 = L.map('full-property-map').setView(c2, 16);
+                             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m2);
+                             if (isDeptF) {
+                                L.marker(c2).addTo(m2);
+                             } else {
+                                L.circle(c2, { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: 100 }).addTo(m2);
+                             }
+                        }
+                    });
+            }
+        });
+  }
+
+  document.addEventListener('astro:page-load', initFullMap);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFullMap);
+  else initFullMap();
+</script>
+
+<style is:global>
+    body { overflow: hidden; }
+</style>

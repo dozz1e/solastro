@@ -102,13 +102,14 @@ import { categoria, ciudad } from "@lib/propiedades.ts";
         "<div class='text-center p-4'><p class='text-gray-500'>No se encontraron resultados para los criterios seleccionados</p></div>";
     } else {
       propiedadesFiltradas.forEach((propiedad) => {
+        const cleanSlug = propiedad.slug.startsWith('/') ? propiedad.slug.slice(1) : propiedad.slug;
         resultados.innerHTML += `
-          <a href="/propiedades/${propiedad.slug}" class="col-span-1">
+          <a href="/propiedades/${cleanSlug}" class="col-span-1">
             <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-md">
               <figure class="relative">
                 <img
-                  src="https://marsolpropiedades.cl/images/propiedades/${propiedad.slug}/1.webp"
-                  alt={propiedad.direccion.direccion}
+                  src="https://marsolpropiedades.cl/images/propiedades/${cleanSlug}/1.webp"
+                  alt="${propiedad.direccion.direccion}"
                   class="w-full object-cover"
                   style="height: 200px;"
                 />

@@ -6,10 +6,11 @@ import {
   RulerDimensionLine,
   Car,
 } from "@lucide/astro";
+import { removeNumbers } from "@utils/format";
 const {
   ciudad,
   slug,
-  direccion,
+  direccion: rawDireccion,
   precio,
   precioUf,
   tipo,
@@ -17,15 +18,20 @@ const {
   datos,
   incluido,
 } = Astro.props;
+
+const direccion = removeNumbers(rawDireccion);
+
+// Normalizamos el slug para evitar doble barra en las URLs (ej: /propiedades//slug)
+const cleanSlug = slug.startsWith('/') ? slug.slice(1) : slug;
 ---
 
-<a href={`/propiedades/${slug}`}>
+<a href={`/propiedades/${cleanSlug}`}>
   <div
     class="card shadow-lg col-span-1 transition-shadow duration-300 rounded-md"
   >
     <figure class="relative">
       <img
-        src={`https://marsolpropiedades.cl/images/propiedades/${slug}/mini.webp`}
+        src={`https://marsolpropiedades.cl/images/propiedades/${cleanSlug}/mini.webp`}
         alt={direccion}
         class="w-full object-cover hover:scale-110 transition-all duration-300 img-card"
       />
