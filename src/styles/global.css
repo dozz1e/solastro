@@ -15,3 +15,64 @@ h1 {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
 }
+
+@keyframes cinematic-rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 38px, 0) scale(0.985);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.cinematic-properties > * {
+  opacity: 0;
+  animation: cinematic-rise-in 0.9s ease-in forwards;
+}
+
+.cinematic-properties > :nth-child(1) {
+  animation-delay: 0.08s;
+}
+.cinematic-properties > :nth-child(2) {
+  animation-delay: 0.14s;
+}
+.cinematic-properties > :nth-child(3) {
+  animation-delay: 0.2s;
+}
+.cinematic-properties > :nth-child(4) {
+  animation-delay: 0.26s;
+}
+.cinematic-properties > :nth-child(5) {
+  animation-delay: 0.32s;
+}
+.cinematic-properties > :nth-child(6) {
+  animation-delay: 0.38s;
+}
+.cinematic-properties > :nth-child(7) {
+  animation-delay: 0.44s;
+}
+.cinematic-properties > :nth-child(8) {
+  animation-delay: 0.5s;
+}
+.cinematic-properties > :nth-child(9) {
+  animation-delay: 0.56s;
+}
+.cinematic-properties > :nth-child(10) {
+  animation-delay: 0.62s;
+}
+.cinematic-properties > :nth-child(n + 11) {
+  animation-delay: 0.68s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-properties > * {
+    opacity: 1;
+    animation: none;
+    filter: none;
+    transform: none;
+  }
+}

@@ -1,41 +1,46 @@
 ---
 import Container from "@layouts/Container.astro";
-import { Mail, Phone, MapPin, Calendar } from "@lucide/astro";
+import { Mail, Phone, MapPin, Calendar, Instagram, Facebook } from "@lucide/astro";
 import { nuevas } from "@lib/propiedades.ts";
 import { menu } from "@lib/menu.ts";
 import Lista from "@components/propiedades/Lista.astro";
+import type { Propiedad } from "@interfaces/Propiedad";
 ---
 
-<div class="bg-stone-900">
+<div class="foot-shell">
   <Container>
-    <div class="footer lg:footer-horizontal p-10 text-white">
-      <div class="col-span-1">
-        <div class="text-2xl">CONTÁCTANOS</div>
-        <p class="text-sm text-gray-400">
-          Ofrecemos servicio de venta, arriendo, administración y asesoramiento
-          inmobiliario, dentro de la zona y el país.
+    <div class="foot-grid text-white">
+      <section class="foot-panel">
+        <h3>Contactanos</h3>
+        <p class="text-sm text-gray-300">
+          Venta, arriendo y administracion inmobiliaria con acompanamiento
+          comercial y juridico para cada operacion.
         </p>
-        <ul class="list">
-          <li class="list-row pl-0 py-2">
-            <MapPin color="red" size="18" />Independencia 1725 of. 504 Edificio
-            Plaza Victoria, Valparaíso, Chile
-            <li class="list-row pl-0 py-2">
-              <Phone color="red" size="18" />+56 9 9599 9796
-            </li>
-            <li class="list-row pl-0 py-2">
-              <Mail color="red" size="18" />contacto@marsolpropiedades.cl
-            </li>
-            <li class="list-row pl-0 py-2">
-              <Calendar color="red" size="18" />Lunes – Viernes: 09:00 – 19:00
-            </li>
+        <ul class="contact-list">
+          <li>
+            <MapPin color="#f87171" size="18" />
+            <span>Independencia 1725 of. 504, Edificio Plaza Victoria, Valparaiso.</span>
+          </li>
+          <li>
+            <Phone color="#f87171" size="18" />
+            <span>+56 9 9599 9796</span>
+          </li>
+          <li>
+            <Mail color="#f87171" size="18" />
+            <span>contacto@marsolpropiedades.cl</span>
+          </li>
+          <li>
+            <Calendar color="#f87171" size="18" />
+            <span>Lunes a Viernes: 09:00 - 19:00</span>
           </li>
         </ul>
-      </div>
-      <div class="col-span-1 w-full">
-        <div class="footer-title">Propiedades Nuevas</div>
+      </section>
+
+      <section class="foot-panel">
+        <h3>Propiedades Nuevas</h3>
         <ul class="list rounded-box w-full">
           {
-            nuevas.map((propiedad) => (
+            nuevas.slice(0, 6).map((propiedad: Propiedad) => (
               <Lista
                 imagen={`https://marsolpropiedades.cl/images/propiedades/${propiedad.slug}/mini.webp`}
                 ciudad={propiedad.direccion.ciudad}
@@ -45,15 +50,16 @@ import Lista from "@components/propiedades/Lista.astro";
             ))
           }
         </ul>
-      </div>
-      <div class="col-span-1">
+      </section>
+
+      <section class="foot-panel">
         <nav>
-          <div class="footer-title">Menú</div>
+          <h3>Menu</h3>
           <ul class="list">
             {
-              menu.map((item) => (
-                <li class="hover:bg-gray-700">
-                  <a href={item.href} class="list-row uppercase">
+              menu.map((item: { name: string; href: string }) => (
+                <li>
+                  <a href={item.href} class="list-row uppercase hover:bg-zinc-700 rounded-md">
                     {item.name}
                   </a>
                 </li>
@@ -61,69 +67,130 @@ import Lista from "@components/propiedades/Lista.astro";
             }
           </ul>
         </nav>
-      </div>
+      </section>
     </div>
   </Container>
-  <div class="bg-black">
+
+  <div class="foot-bottom">
     <Container>
-      <footer
-        class="footer sm:footer-horizontal text-neutral-content items-center p-4"
-      >
-        <aside class="grid-flow-col items-center">
+      <footer class="foot-bottom-inner">
+        <aside class="brand-wrap">
           <img
             src="/logo-nuevo-bl.svg"
             alt="Logo Marsol Propiedades"
             class="h-10 w-auto"
           />
-          <p>
-            Marsol Propiedades © {new Date().getFullYear()} - Todos los derechos
-            reservados.
-          </p>
+          <p>Marsol Propiedades © {new Date().getFullYear()} - Todos los derechos reservados.</p>
         </aside>
-        <nav
-          class="grid-flow-col gap-4 md:place-self-center md:justify-self-end"
-        >
-          <div class="tooltip" data-tip="Instagram">
-            <a
-              href="https://www.instagram.com/marsolpropiedades/"
-              target="_blank"
-              aria-label="Instagram"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                class="bi bi-instagram"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
-                ></path>
-              </svg>
-            </a>
-          </div>
-          <div class="tooltip" data-tip="Facebook">
-            <a
-              href="https://www.facebook.com/propiedadesmarsol"
-              target="_blank"
-              aria-label="Facebook"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                class="fill-current"
-              >
-                <path
-                  d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
-                ></path>
-              </svg>
-            </a>
-          </div>
+        <nav class="social-links">
+          <a href="https://www.instagram.com/marsolpropiedades/" target="_blank" aria-label="Instagram">
+            <Instagram size="22" />
+          </a>
+          <a href="https://www.facebook.com/propiedadesmarsol" target="_blank" aria-label="Facebook">
+            <Facebook size="22" />
+          </a>
         </nav>
       </footer>
     </Container>
   </div>
 </div>
+
+<style>
+  .foot-shell {
+    background: linear-gradient(180deg, #20232d 0%, #17191f 100%);
+    border-top: 1px solid rgba(248, 113, 113, 0.15);
+  }
+
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
+
+  .foot-panel {
+    background: rgba(19, 21, 27, 0.78);
+    border: 1px solid rgba(248, 113, 113, 0.18);
+    border-radius: 0.9rem;
+    padding: 1rem;
+  }
+
+  .foot-panel h3 {
+    margin: 0 0 0.6rem;
+    font-size: 1.1rem;
+    color: #fecaca;
+  }
+
+  .contact-list {
+    margin-top: 0.8rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: #e5e7eb;
+    font-size: 0.93rem;
+  }
+
+  .foot-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: #0f1115;
+  }
+
+  .foot-bottom-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0;
+    color: #d1d5db;
+  }
+
+  .brand-wrap {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+  }
+
+  .brand-wrap p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.65rem;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 9999px;
+    background: rgba(239, 68, 68, 0.18);
+    color: #fecaca;
+    transition: background 0.2s ease;
+  }
+
+  .social-links a:hover {
+    background: rgba(220, 38, 38, 0.8);
+    color: white;
+  }
+
+  @media (min-width: 1024px) {
+    .foot-grid {
+      grid-template-columns: 1.2fr 1fr 0.8fr;
+      padding: 2.2rem 0;
+    }
+
+    .foot-bottom-inner {
+      flex-direction: row;
+    }
+  }
+</style>

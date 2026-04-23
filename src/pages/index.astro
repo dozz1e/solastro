@@ -1,11 +1,10 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Portada from "@components/inicio/Portada.astro";
-import SliderPro from "@components/inicio/SliderPro.astro";
-import Nuevas from "@components/inicio/Nuevas.astro";
-import Servicios from "@components/inicio/Servicios.astro";
-import Nosotros from "@components/inicio/Nosotros.astro";
+import Container from "@layouts/Container.astro";
+import ContainerInterno from "@layouts/ContainerInterno.astro";
+import { categoria, ciudad, destacadas, nuevas, propiedades } from "@lib/propiedades";
 import type { Seo } from "@interfaces/Seo";
+import type { Propiedad } from "@interfaces/Propiedad";
 
 const seo: Seo = {
   title: "MarSol Propiedades | Compra Venta Arriendo Inmobiliario",
@@ -15,12 +14,616 @@ const seo: Seo = {
   image: "https://marsolpropiedades.cl/logos/logo-completo.jpg",
   keywords: ["propiedades", "arriendo", "venta", "compra", "marsolpropiedades"],
 };
+
+const featured: Propiedad[] = destacadas.slice(0, 7) as Propiedad[];
+const latest: Propiedad[] = nuevas.slice(0, 8) as Propiedad[];
 ---
 
 <Layout dataPag={seo}>
-  <Portada />
-  <SliderPro />
-  <Nuevas />
-  <Servicios />
-  <Nosotros />
+  <section class="landing-hero">
+    <Container>
+      <ContainerInterno>
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <span class="hero-pill">GESTION INMOBILIARIA PREMIUM</span>
+            <h1>Compra, vende o arrienda con estrategia y respaldo profesional</h1>
+            <p>
+              Conectamos propietarios y compradores con procesos claros, asesoría jurídica
+              y un portafolio actualizado de propiedades en venta y arriendo.
+            </p>
+            <div class="hero-kpis">
+              <article>
+                <strong>{propiedades.length}+</strong>
+                <span>Propiedades publicadas</span>
+              </article>
+              <article>
+                <strong>{destacadas.length}</strong>
+                <span>Destacadas activas</span>
+              </article>
+              <article>
+                <strong>{ciudad.length}</strong>
+                <span>Ciudades disponibles</span>
+              </article>
+            </div>
+          </div>
+          <form id="heroSearch" class="hero-search-panel">
+            <h2>Buscador de Propiedades</h2>
+            <div class="hero-form-grid">
+              <label>
+                Tipo
+                <select id="searchTipo">
+                  <option value="">Todos</option>
+                  {categoria.map((cat: string) => <option value={cat}>{cat}</option>)}
+                </select>
+              </label>
+              <label>
+                Ciudad
+                <select id="searchCiudad">
+                  <option value="">Todas</option>
+                  {ciudad.map((city: string) => <option value={city}>{city}</option>)}
+                </select>
+              </label>
+              <label>
+                Operacion
+                <select id="searchOperacion">
+                  <option value="">Todas</option>
+                  <option value="Venta">Venta</option>
+                  <option value="Arriendo">Arriendo</option>
+                </select>
+              </label>
+            </div>
+            <div class="hero-search-actions">
+              <button class="btn btn-block bg-red-700 hover:bg-red-800 border-none text-white" type="submit">
+                Buscar propiedades
+              </button>
+              <a href="/propiedades" class="btn btn-block btn-ghost border border-red-400/50 text-red-200 hover:bg-red-700/15">
+                Ver todas las propiedades
+              </a>
+            </div>
+          </form>
+        </div>
+      </ContainerInterno>
+    </Container>
+  </section>
+
+  <section class="section-surface py-14">
+    <Container>
+      <ContainerInterno>
+        <div class="section-head">
+          <div>
+            <h2>Propiedades Destacadas</h2>
+            <p>Selección destacada con formato editorial para dar máxima visibilidad.</p>
+          </div>
+          <div class="slider-controls">
+            <button id="featuredPrev" class="btn btn-sm bg-zinc-700 hover:bg-zinc-600 border-none">Anterior</button>
+            <button id="featuredNext" class="btn btn-sm bg-red-700 hover:bg-red-800 border-none">Siguiente</button>
+          </div>
+        </div>
+
+        <div class="swiper featured-swiper" id="featuredSwiper">
+          <div class="swiper-wrapper">
+          {
+            featured.map((propiedad: Propiedad) => {
+              const cleanSlug = propiedad.slug.startsWith("/") ? propiedad.slug.slice(1) : propiedad.slug;
+              const image = `https://marsolpropiedades.cl/images/propiedades/${cleanSlug}/1.webp`;
+              const price = propiedad.precio.precio
+                ? `$${propiedad.precio.precio} CLP`
+                : `${propiedad.precio.precioUf} UF`;
+              return (
+                <a href={`/propiedades/${cleanSlug}`} class="featured-slide swiper-slide">
+                  <img src={image} alt={propiedad.direccion.direccion} loading="lazy" />
+                  <div class="featured-overlay">
+                    <span class="tag">{propiedad.operacion.operacion}</span>
+                    <h3>{propiedad.direccion.direccion}</h3>
+                    <p>{propiedad.direccion.ciudad} - {propiedad.categoriaGraphql.categoria}</p>
+                    <strong>{price}</strong>
+                  </div>
+                </a>
+              );
+            })
+          }
+          </div>
+          <div class="swiper-pagination featured-pagination" />
+        </div>
+      </ContainerInterno>
+    </Container>
+  </section>
+
+  <section class="py-14">
+    <Container>
+      <ContainerInterno>
+        <div class="section-head">
+          <div>
+            <h2>Propiedades Nuevas</h2>
+            <p>Nuevas publicaciones con formato card para evaluar rapidamente.</p>
+          </div>
+          <a href="/propiedades" class="link text-red-300 hover:text-red-200">Ver todo el catalogo</a>
+        </div>
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5 cinematic-properties">
+          {
+            latest.map((propiedad: Propiedad) => (
+              (() => {
+                const cleanSlug = propiedad.slug.startsWith("/") ? propiedad.slug.slice(1) : propiedad.slug;
+                const image = `https://marsolpropiedades.cl/images/propiedades/${cleanSlug}/1.webp`;
+                const price = propiedad.precio.precio
+                  ? `$${propiedad.precio.precio} CLP`
+                  : `${propiedad.precio.precioUf} UF`;
+                return (
+                  <a href={`/propiedades/${cleanSlug}`} class="new-card">
+                    <figure>
+                      <img src={image} alt={propiedad.direccion.direccion} loading="lazy" />
+                    </figure>
+                    <div class="new-card-body">
+                      <div class="new-card-meta">
+                        <span>{propiedad.categoriaGraphql.categoria}</span>
+                        <span>{propiedad.operacion.operacion}</span>
+                      </div>
+                      <h3>{propiedad.direccion.direccion}</h3>
+                      <p>{propiedad.direccion.ciudad}</p>
+                      <strong>{price}</strong>
+                    </div>
+                  </a>
+                );
+              })()
+            ))
+          }
+        </div>
+      </ContainerInterno>
+    </Container>
+  </section>
+
+  <section class="section-surface py-14">
+    <Container>
+      <ContainerInterno>
+        <div class="grid md:grid-cols-3 gap-4">
+          <article class="value-card">
+            <h3>Venta con estrategia</h3>
+            <p>
+              Posicionamos tu propiedad con fotografia, visibilidad digital y negociacion
+              guiada para cerrar mejores oportunidades.
+            </p>
+          </article>
+          <article class="value-card">
+            <h3>Arriendo seguro</h3>
+            <p>
+              Filtramos perfiles, validamos documentacion y gestionamos el proceso para reducir
+              riesgos y tiempos de vacancia.
+            </p>
+          </article>
+          <article class="value-card">
+            <h3>Asesoria integral</h3>
+            <p>
+              Te acompanamos en cada etapa con soporte administrativo, comercial y juridico
+              desde la publicacion hasta la firma.
+            </p>
+          </article>
+        </div>
+      </ContainerInterno>
+    </Container>
+  </section>
+
+  <section class="py-14">
+    <Container>
+      <ContainerInterno>
+        <div class="cta-banner">
+          <div>
+            <h2>Quieres vender o arrendar tu propiedad?</h2>
+            <p>Publica con nosotros y recibe una estrategia personalizada para destacar tu inmueble.</p>
+          </div>
+          <div class="cta-actions">
+            <a href="/contacto" class="btn bg-red-700 hover:bg-red-800 border-none text-white">Solicitar asesoria</a>
+            <a href="/servicios" class="btn btn-ghost border border-red-400/50 text-red-200 hover:bg-red-700/15">
+              Ver servicios
+            </a>
+          </div>
+        </div>
+      </ContainerInterno>
+    </Container>
+  </section>
 </Layout>
+
+<style>
+  .landing-hero {
+    padding: 1rem 0 2.5rem;
+  }
+
+  .hero-shell {
+    border-radius: 1rem;
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    background:
+      radial-gradient(900px 450px at 0% -15%, rgba(239, 68, 68, 0.28), transparent 45%),
+      radial-gradient(900px 450px at 100% 0%, rgba(248, 113, 113, 0.2), transparent 50%),
+      linear-gradient(145deg, #23262f 0%, #2c2f39 55%, #333744 100%);
+    padding: 1.25rem;
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .hero-pill {
+    width: fit-content;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.65rem;
+    border-radius: 9999px;
+    background: rgba(185, 28, 28, 0.22);
+    color: #fecaca;
+    border: 1px solid rgba(248, 113, 113, 0.28);
+  }
+
+  .hero-copy h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 2.8vw, 3rem);
+    line-height: 1.08;
+  }
+
+  .hero-copy p {
+    margin: 0;
+    color: #e5e7eb;
+    max-width: 65ch;
+  }
+
+  .hero-kpis {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .hero-kpis article {
+    background: rgba(20, 21, 27, 0.5);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    border-radius: 0.75rem;
+    padding: 0.8rem 0.9rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .hero-kpis strong {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fecaca;
+  }
+
+  .hero-kpis span {
+    font-size: 0.87rem;
+    color: #d1d5db;
+  }
+
+  .hero-search-panel {
+    background: rgba(17, 18, 24, 0.58);
+    border: 1px solid rgba(248, 113, 113, 0.24);
+    border-radius: 0.9rem;
+    padding: 1rem;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .hero-search-panel h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .hero-form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .hero-form-grid label {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: #f3f4f6;
+  }
+
+  .hero-form-grid select {
+    width: 100%;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(248, 113, 113, 0.28);
+    background: #20232d;
+    color: #f3f4f6;
+    padding: 0.65rem 0.7rem;
+  }
+
+  .hero-search-actions {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 0.7rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-head h2 {
+    margin: 0;
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
+  }
+
+  .section-head p {
+    margin: 0;
+    color: #d1d5db;
+  }
+
+  .section-surface {
+    background: linear-gradient(180deg, rgba(29, 31, 39, 0.6), rgba(39, 41, 50, 0.6));
+    border-block: 1px solid rgba(248, 113, 113, 0.13);
+  }
+
+  .featured-swiper {
+    padding-bottom: 2.25rem;
+  }
+
+  .featured-slide {
+    position: relative;
+    height: 420px;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: none;
+    background: #1f212a;
+  }
+
+  .featured-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .featured-slide:hover img {
+    transform: scale(1.05);
+  }
+
+  .featured-overlay {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 1.15rem;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.28) 36%,
+      rgba(0, 0, 0, 0.52) 62%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .featured-overlay .tag {
+    width: fit-content;
+    background: rgba(185, 28, 28, 0.85);
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    padding: 0.18rem 0.55rem;
+  }
+
+  .featured-overlay h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    font-weight: 800;
+  }
+
+  .featured-overlay p {
+    margin: 0;
+    color: #d1d5db;
+    font-size: 0.98rem;
+  }
+
+  .featured-overlay strong {
+    color: #b91c1c;
+    font-size: 1.45rem;
+    font-weight: 800;
+  }
+
+  .slider-controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  :global(.featured-pagination .swiper-pagination-bullet) {
+    background: rgba(185, 28, 28, 0.65);
+    opacity: 1;
+  }
+
+  :global(.featured-pagination .swiper-pagination-bullet-active) {
+    background: #dc2626;
+  }
+
+  .value-card {
+    background: #242730;
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    border-radius: 0.85rem;
+    padding: 1.1rem;
+  }
+
+  .value-card h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1.1rem;
+  }
+
+  .value-card p {
+    margin: 0;
+    color: #d1d5db;
+  }
+
+  .new-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    border: none;
+    background: #252936;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .new-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .new-card figure {
+    height: 270px;
+    overflow: hidden;
+  }
+
+  .new-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .new-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .new-card-body {
+    padding: 1rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .new-card-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #dc2626;
+    text-transform: uppercase;
+  }
+
+  .new-card h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .new-card p {
+    margin: 0;
+    color: #d1d5db;
+    font-size: 1rem;
+  }
+
+  .new-card strong {
+    color: #b91c1c;
+    font-size: 1.28rem;
+  }
+
+  .cta-banner {
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    border-radius: 1rem;
+    background:
+      radial-gradient(700px 300px at 90% 0%, rgba(220, 38, 38, 0.23), transparent 50%),
+      #262a35;
+    padding: 1.4rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .cta-banner h2 {
+    margin: 0 0 0.35rem;
+  }
+
+  .cta-banner p {
+    margin: 0;
+    color: #d1d5db;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-shell {
+      padding: 2rem;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: stretch;
+    }
+
+    .hero-form-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-kpis {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cta-banner {
+      grid-template-columns: 1.5fr auto;
+      align-items: center;
+      padding: 1.7rem;
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+
+  const slider = document.getElementById("featuredSwiper");
+  const next = document.getElementById("featuredNext");
+  const prev = document.getElementById("featuredPrev");
+
+  if (slider) {
+    const slideCount = slider.querySelectorAll(".swiper-slide").length;
+    new Swiper(slider, {
+      modules: [Navigation, Pagination, Autoplay],
+      slidesPerView: 1.1,
+      spaceBetween: 16,
+      loop: slideCount > 2,
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        prevEl: prev,
+        nextEl: next,
+      },
+      pagination: {
+        el: ".featured-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 18,
+        },
+        1200: {
+          slidesPerView: 2.7,
+          spaceBetween: 20,
+        },
+      },
+    });
+  }
+
+  const heroSearch = document.getElementById("heroSearch");
+  heroSearch?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const tipo = document.getElementById("searchTipo") as HTMLSelectElement | null;
+    const ciudadSel = document.getElementById("searchCiudad") as HTMLSelectElement | null;
+    const operacion = document.getElementById("searchOperacion") as HTMLSelectElement | null;
+
+    const params = new URLSearchParams();
+    if (tipo?.value) params.set("tipo", tipo.value);
+    if (ciudadSel?.value) params.set("ciudad", ciudadSel.value);
+    if (operacion?.value) params.set("operacion", operacion.value);
+
+    const query = params.toString();
+    window.location.href = query ? `/propiedades?${query}` : "/propiedades";
+  });
+</script>
