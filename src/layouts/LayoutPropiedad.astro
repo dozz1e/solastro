@@ -31,6 +31,9 @@ const { contacto } = Astro.props;
           type: "website",
           image: image,
         },
+        optional: {
+          description: description,
+        },
       }}
       extend={{
         meta: [{ name: "keywords", content: keywords.join(", ") }],
