@@ -31,6 +31,7 @@ const seo: Seo = {
                   ciudad={propiedad.direccion.ciudad}
                   slug={propiedad.slug}
                   key={propiedad.slug}
+                  titulo={propiedad.title}
                   direccion={propiedad.direccion.direccion}
                   precio={propiedad.precio.precio}
                   precioUf={propiedad.precio.precioUf}
@@ -53,7 +54,7 @@ const seo: Seo = {
           }
         </div>
       </div>
-      <aside class="col-span-1">
+      <aside class="col-span-1 sticky top-4 self-start">
         <BuscadorLateral />
       </aside>
     </div>

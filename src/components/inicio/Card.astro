@@ -3,23 +3,19 @@ import {
   MapPin,
   BedDouble,
   Bath,
-  RulerDimensionLine,
   Car,
 } from "@lucide/astro";
-import { removeNumbers } from "@utils/format";
 const {
   ciudad,
   slug,
-  direccion: rawDireccion,
+  titulo,
+  direccion,
   precio,
   precioUf,
   tipo,
   operacion,
   datos,
-  incluido,
 } = Astro.props;
-
-const direccion = removeNumbers(rawDireccion);
 
 // Normalizamos el slug para evitar doble barra en las URLs (ej: /propiedades//slug)
 const cleanSlug = slug.startsWith('/') ? slug.slice(1) : slug;
@@ -49,7 +45,7 @@ const cleanSlug = slug.startsWith('/') ? slug.slice(1) : slug;
       <ul class="list">
         <li class="list-row flex flex-col gap-1 h-20">
           <header class="overflow-hidden text-ellipsis">
-            <h2 class="card-title">{direccion}</h2>
+            <h2 class="card-title">{titulo}</h2>
           </header>
           <div class="flex justify-center items-center gap-1">
             <MapPin color="red" size="18" />
