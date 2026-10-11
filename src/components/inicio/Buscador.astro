@@ -39,12 +39,12 @@ import { categoria, ciudad, propiedadesBusquedaJson } from "@lib/propiedades";
             </fieldset>
           </div>
           <div class="col-span-1 flex justify-center items-center">
-            <a
-              id="buscar"
+            <button
+              type="submit"
               class="btn w-full md:btn-xl bg-red-700 hover:bg-red-800 text-white rounded-md"
             >
               Buscar
-            </a>
+            </button>
           </div>
         </div>
       </form>
@@ -67,7 +67,7 @@ import { categoria, ciudad, propiedadesBusquedaJson } from "@lib/propiedades";
 
 <script>
   import { initBuscador } from "@lib/buscador";
-  initBuscador("buscadorForm", "buscar", "resultados", "datos-buscador");
+  initBuscador("buscadorForm", "resultados", "datos-buscador");
 </script>
 
 <style>

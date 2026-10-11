@@ -8,30 +8,30 @@ import Ultimas from "@components/propiedad/Ultimas.astro";
   <div class="card-body">
     <form id="buscadorLateralForm" action="" class="hidden md:block">
       <fieldset class="fieldset p-0 mb-1">
-        <select name="categoria" class="select select-ghost w-full text-lg">
+        <select name="categoria" aria-label="Tipo de propiedad" class="select select-ghost w-full text-lg">
           <option disabled selected value="">Elija Tipo</option>
           {categoria.map((cate) => <option value={cate}>{cate}</option>)}
         </select>
       </fieldset>
       <fieldset class="fieldset p-0 mb-1">
-        <select name="ciudad" class="select select-ghost w-full text-lg">
+        <select name="ciudad" aria-label="Ciudad" class="select select-ghost w-full text-lg">
           <option disabled selected value="">Elija Ciudad</option>
           {ciudad.map((city) => <option value={city}>{city}</option>)}
         </select>
       </fieldset>
       <fieldset class="fieldset p-0 mb-1">
-        <select name="operacion" class="select select-ghost w-full text-lg">
+        <select name="operacion" aria-label="Operación" class="select select-ghost w-full text-lg">
           <option disabled selected value="">Elija Operación</option>
           <option value="Venta">Venta</option>
           <option value="Arriendo">Arriendo</option>
         </select>
       </fieldset>
-      <a
-        id="buscarPage"
+      <button
+        type="submit"
         class="btn btn-lg bg-red-400 hover:bg-red-700 text-white rounded-md w-full mt-1"
       >
         Buscar
-      </a>
+      </button>
     </form>
     <!-- <div class="divider hidden md:block"></div>
     <Tags /> -->
@@ -50,7 +50,7 @@ import Ultimas from "@components/propiedad/Ultimas.astro";
 
 <script>
   import { initBuscador } from "@lib/buscador";
-  initBuscador("buscadorLateralForm", "buscarPage", "propiedadesPage", "datos-buscador-lateral");
+  initBuscador("buscadorLateralForm", "propiedadesPage", "datos-buscador-lateral");
 </script>
 
 <style is:global>
