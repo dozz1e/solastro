@@ -9,7 +9,15 @@ const cleanSlug = slug.startsWith('/') ? slug.slice(1) : slug;
 <li class="hover:bg-gray-700">
   <a href={`/propiedades/${cleanSlug}`} class="list-row p-2">
     <div>
-      <img class="w-16 h-10 rounded-sm" src={imagen} alt={direccion} />
+      <img
+        class="w-16 h-10 rounded-sm object-cover"
+        src={imagen}
+        alt={direccion}
+        width="800"
+        height="500"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
     <div>
       <div class="lista-propiedad">{direccion}</div>

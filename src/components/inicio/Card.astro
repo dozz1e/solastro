@@ -29,6 +29,10 @@ const cleanSlug = slug.startsWith('/') ? slug.slice(1) : slug;
       <img
         src={`https://marsolpropiedades.cl/images/propiedades/${cleanSlug}/mini.webp`}
         alt={direccion}
+        width="800"
+        height="500"
+        loading="lazy"
+        decoding="async"
         class="w-full object-cover hover:scale-110 transition-all duration-300 img-card"
       />
       <div
