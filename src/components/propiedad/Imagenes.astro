@@ -1,13 +1,29 @@
 ---
+import { Image, inferRemoteSize } from "astro:assets";
+
 const { slug, cantidad, video, urlVideo } = Astro.props;
 const ttimages = cantidad - 4;
+const foto = (n: number) =>
+  `https://marsolpropiedades.cl/images/propiedades/${slug}/${n}.webp`;
+// Las fotos originales son de 4000x3000; Astro genera versiones chicas al compilar.
+// El lightbox sigue abriendo el original.
+const medidas = await Promise.all([1, 2, 3, 4].map((n) => inferRemoteSize(foto(n))));
+// Alto proporcional al ancho pedido, según la foto real
+const alto = (n: number, ancho: number) =>
+  Math.round((ancho * medidas[n - 1].height) / medidas[n - 1].width);
 ---
 
 <div id="imagenes" class="grid lg:grid-cols-5 gap-2 h-auto alto">
   <div class="lg:col-span-4 overflow-hidden">
-    <img
-      src={`https://marsolpropiedades.cl/images/propiedades/${slug}/1.webp`}
-      alt={`Imagen 1`}
+    <Image
+      src={foto(1)}
+      alt="Imagen 1"
+      width={1600}
+      height={alto(1, 1600)}
+      widths={[480, 800, 1200, 1600]}
+      sizes="(min-width: 1024px) 80vw, 100vw"
+      loading="eager"
+      fetchpriority="high"
       class="gallery-img hover:shadow-xl lg:w-full h-full object-cover alto-img"
       data-index="0"
     />
@@ -16,51 +32,32 @@ const ttimages = cantidad - 4;
     <div
       class="grid grid-cols-3 lg:grid-flow-col lg:grid-rows-3 lg:grid-cols-1 gap-2 alto"
     >
-      <div class="col-span-1 lg:row-span-1">
-        <img
-          src={`https://marsolpropiedades.cl/images/propiedades/${slug}/2.webp`}
-          alt={`Imagen 2`}
-          class="gallery-img hover:shadow-xl h-full w-full object-cover"
-          data-index="1"
-        />
-      </div>
-      <div class="col-span-1 lg:row-span-1">
-        <img
-          src={`https://marsolpropiedades.cl/images/propiedades/${slug}/3.webp`}
-          alt={`Imagen 3`}
-          class="gallery-img hover:shadow-xl h-full w-full object-cover"
-          data-index="2"
-        />
-      </div>
-      <div class="col-span-1 relative lg:row-span-1">
-        <img
-          src={`https://marsolpropiedades.cl/images/propiedades/${slug}/4.webp`}
-          alt={`Imagen 4`}
-          class="gallery-img hover:shadow-xl h-full w-full object-cover"
-          data-index="3"
-        />
-        <div
-          class="counter-image absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center text-white text-2xl font-bold gallery-img"
-          data-index="3"
-        >
-          +{ttimages}
-        </div>
-      </div>
+      {
+        [2, 3, 4].map((n) => (
+          <div class={`col-span-1 lg:row-span-1${n === 4 ? " relative" : ""}`}>
+            <Image
+              src={foto(n)}
+              alt={`Imagen ${n}`}
+              width={480}
+              height={alto(n, 480)}
+              widths={[240, 480]}
+              sizes="(min-width: 1024px) 20vw, 33vw"
+              class="gallery-img hover:shadow-xl h-full w-full object-cover"
+              data-index={n - 1}
+            />
+            {n === 4 && (
+              <div
+                class="counter-image absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center text-white text-2xl font-bold gallery-img"
+                data-index="3"
+              >
+                +{ttimages}
+              </div>
+            )}
+          </div>
+        ))
+      }
     </div>
   </div>
-</div>
-
-<div class="gallery hidden">
-  {
-    Array.from({ length: cantidad }, (_, index) => (
-      <img
-        src={`https://marsolpropiedades.cl/images/propiedades/${slug}/${index + 1}.webp`}
-        alt={`Imagen ${index + 1}`}
-        class="gallery-img"
-        data-index={index}
-      />
-    ))
-  }
 </div>
 
 <div
@@ -73,7 +70,7 @@ const ttimages = cantidad - 4;
     style="position:absolute; left:30px; top:50%; font-size:2rem; background:none; border:none; color:white; cursor:pointer;"
     >&#8592;</button
   >
-  <img id="lightbox-img" src="" style="max-width:90vw; max-height:90vh;" />
+  <img id="lightbox-img" src="" alt="" style="max-width:90vw; max-height:90vh;" />
   <button
     id="next-btn"
     style="position:absolute; right:30px; top:50%; font-size:2rem; background:none; border:none; color:white; cursor:pointer;"
@@ -94,6 +91,7 @@ const ttimages = cantidad - 4;
     function showImage(index) {
       currentIndex = index;
       lightboxImg.src = `https://marsolpropiedades.cl/images/propiedades/${slug}/${index + 1}.webp`;
+      lightboxImg.alt = `Imagen ${index + 1} de ${cantidad}`;
       lightbox.style.display = "flex";
       document.body.classList.add("overflow-hidden"); // Desactiva scroll
     }

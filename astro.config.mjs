@@ -12,6 +12,10 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://marsolpropiedades.cl",
+  // Fotos de propiedades que Astro redimensiona al compilar (miniaturas de la galería)
+  image: {
+    domains: ["marsolpropiedades.cl"],
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {

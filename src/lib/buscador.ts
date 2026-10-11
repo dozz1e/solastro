@@ -51,6 +51,10 @@ const renderCard = (p: PropiedadBusqueda): string => {
                 <img
                   src="https://marsolpropiedades.cl/images/propiedades/${slug}/mini.webp"
                   alt="${escapar(p.title)}"
+                  width="800"
+                  height="500"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full object-cover hover:scale-110 transition-all duration-300 img-card"
                 />
                 <div class="card-body bg-gradient-to-t from-black/80 to-transparent absolute bottom-0 w-full p-4">
