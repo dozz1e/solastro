@@ -28,6 +28,8 @@ const { title, description, url, image, keywords } = Astro.props
           title: title,
           type: "website",
           image: image,
+          // Con barra final, igual que el canonical, el sitemap y la redirección del servidor
+          url: url.endsWith("/") ? url : url + "/",
         },
       }}
       extend={{

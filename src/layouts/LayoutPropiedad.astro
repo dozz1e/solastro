@@ -30,7 +30,8 @@ const { contacto } = Astro.props;
           title: title,
           type: "website",
           image: image,
-          url: url,
+          // Con barra final, igual que el canonical, el sitemap y la redirección del servidor
+          url: url.endsWith("/") ? url : url + "/",
         },
         optional: {
           description: description,
