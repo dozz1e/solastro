@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # skills enlazados localmente (junctions de Windows)
 .claude/skills/
+
+# logs de build locales
+build_log*.txt
