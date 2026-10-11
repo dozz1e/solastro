@@ -96,26 +96,25 @@ const renderCard = (p: PropiedadBusqueda): string => {
 
 /**
  * Conecta un formulario de búsqueda con su contenedor de resultados.
- * @param formId Formulario con selects name="categoria" | "ciudad" | "operacion"
- * @param botonId Botón que dispara la búsqueda
+ * @param formId Formulario con selects name="categoria" | "ciudad" | "operacion" y un botón submit
  * @param resultadosId Contenedor donde se pintan las cards
  * @param datosId <script type="application/json"> con las propiedades
  */
 export const initBuscador = (
   formId: string,
-  botonId: string,
   resultadosId: string,
   datosId: string,
 ) => {
   const form = document.getElementById(formId) as HTMLFormElement | null;
-  const boton = document.getElementById(botonId);
   const resultados = document.getElementById(resultadosId);
   const datos = document.getElementById(datosId);
-  if (!form || !boton || !resultados || !datos) return;
+  if (!form || !resultados || !datos) return;
 
   const propiedades: PropiedadBusqueda[] = JSON.parse(datos.textContent || "[]");
 
-  boton.addEventListener("click", () => {
+  // submit cubre el clic en "Buscar" y la tecla Enter
+  form.addEventListener("submit", (evento) => {
+    evento.preventDefault();
     const valor = (nombre: string) =>
       (form.elements.namedItem(nombre) as HTMLSelectElement | null)?.value ?? "";
 

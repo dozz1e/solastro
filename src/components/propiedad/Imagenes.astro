@@ -26,6 +26,9 @@ const alto = (n: number, ancho: number) =>
       fetchpriority="high"
       class="gallery-img hover:shadow-xl lg:w-full h-full object-cover alto-img"
       data-index="0"
+      role="button"
+      tabindex="0"
+      aria-label={`Ver foto 1 de ${cantidad} en grande`}
     />
   </div>
   <div class="lg:col-span-1">
@@ -44,11 +47,17 @@ const alto = (n: number, ancho: number) =>
               sizes="(min-width: 1024px) 20vw, 33vw"
               class="gallery-img hover:shadow-xl h-full w-full object-cover"
               data-index={n - 1}
+              role={n < 4 ? "button" : undefined}
+              tabindex={n < 4 ? "0" : undefined}
+              aria-label={n < 4 ? `Ver foto ${n} de ${cantidad} en grande` : undefined}
             />
             {n === 4 && (
               <div
                 class="counter-image absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center text-white text-2xl font-bold gallery-img"
                 data-index="3"
+                role="button"
+                tabindex="0"
+                aria-label={`Ver las ${cantidad} fotos`}
               >
                 +{ttimages}
               </div>
@@ -62,17 +71,31 @@ const alto = (n: number, ancho: number) =>
 
 <div
   id="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Galería de fotos"
   style="background:rgba(0,0,0,0.8);"
   class="hidden fixed top-0 left-0 w-full h-full z-100 items-center justify-center"
 >
   <button
+    id="close-btn"
+    type="button"
+    aria-label="Cerrar galería"
+    style="position:absolute; top:16px; right:16px; width:44px; height:44px; font-size:2rem; line-height:1; background:none; border:none; color:white; cursor:pointer;"
+    >&times;</button
+  >
+  <button
     id="prev-btn"
+    type="button"
+    aria-label="Foto anterior"
     style="position:absolute; left:30px; top:50%; font-size:2rem; background:none; border:none; color:white; cursor:pointer;"
     >&#8592;</button
   >
   <img id="lightbox-img" src="" alt="" style="max-width:90vw; max-height:90vh;" />
   <button
     id="next-btn"
+    type="button"
+    aria-label="Foto siguiente"
     style="position:absolute; right:30px; top:50%; font-size:2rem; background:none; border:none; color:white; cursor:pointer;"
     >&#8594;</button
   >
@@ -87,14 +110,32 @@ const alto = (n: number, ancho: number) =>
     const lightboxImg = document.getElementById("lightbox-img");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
+    const closeBtn = document.getElementById("close-btn");
+    let ultimoFoco = null;
+
+    const abierto = () => lightbox.style.display === "flex";
 
     function showImage(index) {
       currentIndex = index;
       lightboxImg.src = `https://marsolpropiedades.cl/images/propiedades/${slug}/${index + 1}.webp`;
       lightboxImg.alt = `Imagen ${index + 1} de ${cantidad}`;
-      lightbox.style.display = "flex";
-      document.body.classList.add("overflow-hidden"); // Desactiva scroll
+      if (!abierto()) {
+        // Recordar desde dónde se abrió para devolver el foco al cerrar
+        ultimoFoco = document.activeElement;
+        lightbox.style.display = "flex";
+        document.body.classList.add("overflow-hidden"); // Desactiva scroll
+        closeBtn.focus();
+      }
     }
+
+    function cerrar() {
+      lightbox.style.display = "none";
+      document.body.classList.remove("overflow-hidden"); // Activa scroll
+      if (ultimoFoco) ultimoFoco.focus();
+    }
+
+    const anterior = () => showImage((currentIndex - 1 + cantidad) % cantidad);
+    const siguiente = () => showImage((currentIndex + 1) % cantidad);
 
     let startX = 0;
     let endX = 0;
@@ -121,25 +162,45 @@ const alto = (n: number, ancho: number) =>
         const idx = Number(this.getAttribute("data-index"));
         showImage(idx);
       });
+      img.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          showImage(Number(this.getAttribute("data-index")));
+        }
+      });
+    });
+
+    closeBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      cerrar();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (!abierto()) return;
+      if (e.key === "Escape") cerrar();
+      else if (e.key === "ArrowLeft") anterior();
+      else if (e.key === "ArrowRight") siguiente();
+      else if (e.key === "Tab") {
+        // Mantener el foco dentro del diálogo
+        const botones = [closeBtn, prevBtn, nextBtn];
+        const i = botones.indexOf(document.activeElement);
+        e.preventDefault();
+        botones[(i + (e.shiftKey ? botones.length - 1 : 1)) % botones.length].focus();
+      }
     });
 
     prevBtn.addEventListener("click", function (e) {
       e.stopPropagation();
-      currentIndex = (currentIndex - 1 + cantidad) % cantidad;
-      showImage(currentIndex);
+      anterior();
     });
 
     nextBtn.addEventListener("click", function (e) {
       e.stopPropagation();
-      currentIndex = (currentIndex + 1) % cantidad;
-      showImage(currentIndex);
+      siguiente();
     });
 
     lightbox.addEventListener("click", function (e) {
-      if (e.target === lightbox) {
-        lightbox.style.display = "none";
-        document.body.classList.remove("overflow-hidden"); // Activa scroll
-      }
+      if (e.target === lightbox) cerrar();
     });
   });
 </script>
