@@ -7,6 +7,7 @@ import Video from "@components/propiedad/Video.astro";
 import { removeNumbers } from "@utils/format";
 const { propiedad } = Astro.props;
 const title = removeNumbers(propiedad.title);
+const cleanSlug = propiedad.slug.replace(/^\//, "");
 const esta = propiedad.incluye.incluye
   ? propiedad.incluye.incluye.includes("Estacionamiento")
   : false;
@@ -41,7 +42,7 @@ const esta = propiedad.incluye.incluye
                 <div class="flex items-center gap-2">
                   <span class="text-lg">Compartir</span>
                   <ShareButtons
-                    url={`https://marsolpropiedades.cl/propiedades${propiedad.slug}`}
+                    url={`https://marsolpropiedades.cl/propiedades/${cleanSlug}`}
                     title={title}
                   />
                 </div>
@@ -54,7 +55,7 @@ const esta = propiedad.incluye.incluye
         {
           propiedad.datos.video === 1 ? (
             <Video
-              src={`https://marsolpropiedades.cl/videos/propiedades/${propiedad.slug}/1.mp4`}
+              src={`https://marsolpropiedades.cl/videos/propiedades/${cleanSlug}/1.mp4`}
             />
           ) : (
             <div class="grid grid-cols-1 gap-2">
@@ -66,7 +67,7 @@ const esta = propiedad.incluye.incluye
               <div class="flex items-center justify-end gap-4">
                 <span class="text-lg">Compartir</span>
                 <ShareButtons
-                  url={`https://marsolpropiedades.cl/propiedades${propiedad.slug}`}
+                  url={`https://marsolpropiedades.cl/propiedades/${cleanSlug}`}
                   title={title}
                 />
               </div>

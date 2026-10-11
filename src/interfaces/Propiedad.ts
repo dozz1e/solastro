@@ -38,11 +38,13 @@ interface Datos {
   galeria: number;
   video: number;
   urlVideo: string;
+  estacionamiento?: number;
+  bodega?: number;
 }
 
 // Interface para Categoría
 interface CategoriaGraphql {
-  categoria: string;
+  categoria: string[];
 }
 
 // Interface para SEO
