@@ -16,7 +16,7 @@ interface Direccion {
 
 // Interface para Categoría
 interface CategoriaGraphql {
-  categoria: string;
+  categoria: string[];
 }
 
 // Interface para Imagen destacada

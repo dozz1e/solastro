@@ -49,7 +49,8 @@ const seo = {
             <div id="full-property-map" 
                  class="w-full h-full" 
                  data-address={mapaQuery} 
-                 data-id={propiedad.slug}>
+                 data-id={propiedad.slug}
+                 data-type={propiedad.categoriaGraphql.categoria[0]}>
             </div>
             
             <!-- Loader -->
@@ -85,7 +86,7 @@ const seo = {
             if (data && data.length > 0) {
                 clearLoader();
                 const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-                const isDept = "{propiedad.categoriaGraphql.categoria}" === "Departamento";
+                const isDept = el.dataset.type === "Departamento";
                 const map = L.map('full-property-map', { zoomControl: true }).setView(coords, 18);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
                 
@@ -102,7 +103,7 @@ const seo = {
                         clearLoader();
                         if (d2 && d2.length > 0) {
                              const c2 = [parseFloat(d2[0].lat), parseFloat(d2[0].lon)];
-                             const isDeptF = "{propiedad.categoriaGraphql.categoria}" === "Departamento";
+                             const isDeptF = el.dataset.type === "Departamento";
                              const m2 = L.map('full-property-map').setView(c2, 16);
                              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m2);
                              if (isDeptF) {

@@ -1,4 +1,5 @@
 import type { Propiedad } from "@interfaces/Propiedad";
+import type { PropiedadBusqueda } from "@lib/buscador";
 
 const response = await fetch("https://marsolpropiedades.cl/data/graphql", {
   method: "POST",
@@ -84,3 +85,29 @@ ciudad = [...new Set(ciudad)];
 let tags = [...categoria, "Venta", "Arriendo"];
 
 export { propiedades, destacadas, nuevas, categoria, ciudad, tags };
+
+// Versión reducida para los buscadores: se embebe como JSON en el HTML
+const propiedadesBusqueda: PropiedadBusqueda[] = propiedades.map(
+  (pp: Propiedad) => ({
+    slug: pp.slug.replace(/^\//, ""),
+    title: pp.title,
+    categoria: pp.categoriaGraphql.categoria[0],
+    ciudad: pp.direccion.ciudad,
+    operacion: pp.operacion.operacion,
+    precio: pp.precio.precio,
+    precioUf: pp.precio.precioUf,
+    areaTotal: pp.datos.areaTotal,
+    banos: pp.datos.banos,
+    habitaciones: pp.datos.habitaciones,
+    estacionamiento: pp.datos.estacionamiento,
+    bodega: pp.datos.bodega,
+  }),
+);
+
+// Seguro para incrustar dentro de <script type="application/json">
+const propiedadesBusquedaJson = JSON.stringify(propiedadesBusqueda).replace(
+  /</g,
+  "\u003c",
+);
+
+export { propiedadesBusqueda, propiedadesBusquedaJson };
