@@ -14,6 +14,7 @@ import Mapa from "@components/propiedad/Mapa.astro";
 import Aside from "@components/propiedad/Aside.astro";
 
 import { removeNumbers } from "@utils/format";
+import { obtenerCoordenadas } from "@lib/geocodificar";
 
 export const getStaticPaths = (() => {
   return propiedades.map((propiedad: Propiedad) => ({
@@ -50,15 +51,10 @@ const seo: Seo = {
   ],
 };
 
-let city = "";
-if (propiedad.direccion.ciudad) {
-  city = propiedad.direccion.ciudad.replace(/ /g, "+") || "";
-}
-let dire = "";
-if (propiedad.direccion.direccion) {
-  dire = propiedad.direccion.direccion.replace(/ /g, "+") || "";
-}
-const mapa = `${dire}+${city}`;
+const coords = await obtenerCoordenadas(
+  propiedad.direccion.direccion,
+  propiedad.direccion.ciudad,
+);
 ---
 
 <LayoutPropiedad
@@ -87,7 +83,7 @@ const mapa = `${dire}+${city}`;
           )
         }
 
-        {mapa.length > 0 && <Mapa mapa={mapa} slug={cleanSlug} tipo={propiedad.categoriaGraphql.categoria[0]} />}
+        <Mapa coords={coords} slug={cleanSlug} tipo={propiedad.categoriaGraphql.categoria[0]} />
       </div>
       <div class="col-span-1">
         <Aside
